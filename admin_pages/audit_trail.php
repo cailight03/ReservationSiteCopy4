@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 // Database configuration
 $servername = 'localhost'; 
 $username = 'root';
-$password = '';
+$password = '12345';
 $dbname = 'reservationdb';
 
 // Create connection
