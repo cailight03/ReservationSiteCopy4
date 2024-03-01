@@ -8,6 +8,6 @@ $_SESSION = array();
 session_destroy();
 
 // Redirect to the index.php page
-header("Location: /ReservationSiteV4/index.php");
+header("Location: /ReservationSiteCopy4/login.php");
 exit();
 ?>

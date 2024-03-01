@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Redirect based on user category
         switch ($category) {
             case 'admin':
-                header("Location: ../admin_pages/admin_dashboard.php?user_id=$user_id");
+                header("Location: ../admin_pages/admin_dash.php?user_id=$user_id");
                 break;
             case 'client':
                 header("Location: ../client_pages/index.php?user_id=$user_id");
