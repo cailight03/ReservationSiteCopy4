@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background: #ececec;
+    
+}
+
+/*------------ Login container ------------*/
+
+.box-area{
+    width: 930px;
+}
+
+/*------------ Right box ------------*/
+
+.right-box{
+    padding: 40px 30px 40px 40px;
+}
+
+
+/*------------ Left box ------------*/
+
+
+
+
+/*------------ Custom Placeholder ------------*/
+
+::placeholder{
+    font-size: 16px;
+}
+
+.rounded-4{
+    border-radius: 20px;
+}
+.rounded-5{
+    border-radius: 30px;
+}
+
+
+/* --------------wala lang delete mo to after--------------- */
+
+.reserve-now-btn {
+    background-color: #1a2337;
+    color: #ffd700;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 140px;
+    
+    
+}
+.custom-item-input{
+    display: none;
+}
+.quantity-input {
+    margin-top: 5px;
+    position: relative;
+    align-items: center;
+
+}
+
+.quantity-input button {
+    position: absolute;
+    right: 0;
+    top: 45%;
+    transform: translateY(50%);
+    background-color: #1a2337;
+    color: #ffd700;
+    border: none;
+    cursor: pointer;
+    border-radius: 100%;
+    padding: 0px;
+    font-size: 12px;
+    width: 16px;
+    height: 16px;
+    margin-left: 100px;
+}
+
+.quantity-input button:hover {
+    background-color: #e0c572;
+}
+.add-item-dropdown {
+    width: 100%;
+}
+
+.item-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.item-column {
+    flex: 1;
+}
+
+.selected-items-container {
+    margin-top: 10px;
+}
+
+.selected-items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.selected-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.delete-button {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 0; /* Removed padding to make it square */
+    width: 20px; /* Set width for a square button */
+    height: 20px; /* Set height for a square button */
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.delete-button:hover {
+    background-color: #cc0000;
+}
+
+
+.reserve-now-container {
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+}
+
+.reserve-now-btn {
+    background-color: #1a2337;
+    color: #ffd700;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 140px;
+    margin-left: auto; /* This will push the button to the right */
+}
+.item-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+
+/*------------ For small screens------------*/
+
+@media only screen and (max-width: 768px){
+
+     .box-area{
+        margin: 0 10px;
+
+     }
+     .left-box{
+        display: none !important; /* Use !important to override other styles */
+    
+     }
+     .right-box{
+        padding: 20px;
+        width: 100%; /* Make the right box occupy the full width */
+     }
+
+}

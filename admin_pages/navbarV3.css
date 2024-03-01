@@ -1,0 +1,132 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+/* Header styles */
+.header {
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_toggle {
+    cursor: pointer;
+}
+
+/* Navbar styles */
+.l-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #1f3a7a;
+    color: #fff;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    padding-top: 50px; /* Adjust this value based on your header height */
+}
+
+.nav_logo {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 30px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav_logo-image {
+    margin-right: 10px;
+}
+
+.nav_logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav_logo-primary {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.nav_logo-secondary {
+    font-size: 0.9rem;
+}
+
+.nav_list {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav_link {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: inherit;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.nav_link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav_icon {
+    margin-right: 10px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.close {
+    cursor: pointer;
+}
+
+.open {
+    transform: translateX(0);
+}
+
+/* Media query for larger screens */
+@media screen and (min-width: 768px) {
+    .l-navbar {
+        width: 80px; /* Adjust as needed */
+        padding-top: 20px; /* Adjust based on header height */
+    }
+
+    .nav_logo {
+        margin-bottom: 20px;
+    }
+
+    .nav_list {
+        margin-top: 20px;
+    }
+}
