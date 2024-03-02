@@ -1,5 +1,5 @@
 <?php
-include '../config/connection.php';
+include '../../config/connection.php';
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $categoryId = $_POST['category_id'];  // Assuming you have a hidden input field for category_id
 
     // Create a folder for room images
-    $roomImagePath = "../img/room_img/" . $roomName . "/";
+    $roomImagePath = "../../img/room_img/" . $roomName . "/";
     if (!file_exists($roomImagePath)) {
         mkdir($roomImagePath, 0777, true);
     }
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $connection->prepare($insertQuery);
 
     if ($stmt) {
-        $roomImagePathForDB = "../img/room_img/" . $roomName . "/";
+        $roomImagePathForDB = "../../img/room_img/" . $roomName . "/";
         $stmt->bind_param("sssi", $roomName, $roomDescription, $roomImagePathForDB, $categoryId);
 
         if ($stmt->execute()) {

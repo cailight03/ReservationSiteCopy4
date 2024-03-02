@@ -1,5 +1,5 @@
 <?php
-include '../config/connection.php';
+include '../../config/connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $categoryId = $_POST['editCategoryId'];
@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $oldImagePath = $categoryData['category_img_path'];
 
         // Rename the category folder
-        $oldFolderPath = '../img/category_img/' . $oldCategoryName;
-        $newFolderPath = '../img/category_img/' . $newCategoryName;
+        $oldFolderPath = '../../img/category_img/' . $oldCategoryName;
+        $newFolderPath = '../../img/category_img/' . $newCategoryName;
 
         if ($oldFolderPath !== $newFolderPath && !file_exists($newFolderPath)) {
             rename($oldFolderPath, $newFolderPath);

@@ -1,5 +1,5 @@
 <?php
-include '../config/connection.php';
+include '../../config/connection.php';
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $vehicleDescription = $_POST['vehicle_description'];
 
     // Create a folder for room images
-    $vehicleImagePath = "../img/vehicle_img/" . $vehicleName . "/";
+    $vehicleImagePath = "../../img/vehicle_img/" . $vehicleName . "/";
     if (!file_exists($vehicleImagePath)) {
         mkdir($vehicleImagePath, 0777, true);
     }
@@ -27,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    
 
     // Insert data into the rooms table
     $insertQuery = "INSERT INTO vehicles (vehicle_name, vehicle_description, vehicle_img_path) VALUES (?, ?, ?)";

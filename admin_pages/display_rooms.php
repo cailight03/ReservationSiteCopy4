@@ -208,7 +208,7 @@ if (isset($_GET['category'])) {
                     // Display carousel items
                     foreach ($images as $index => $image) {
                         echo '<div class="carousel-item' . ($index === 0 ? ' active' : '') . '">';
-                        echo '<img src="' . $image . '" class="d-block w-100" alt="Room Image">';
+                        echo '<img src="' . $image . '" class="d-block w-100" alt="Room Image" >';
                         echo '</div>';
                     }
 

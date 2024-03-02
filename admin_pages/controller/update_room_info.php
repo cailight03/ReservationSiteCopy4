@@ -1,12 +1,12 @@
 <?php
-include '../config/connection.php';
+include '../../config/connection.php';
 
 session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     // Redirect to the login page if not logged in
-    header('Location: ../index.php');
+    header('Location: ../../index.php');
     exit();
 }
 
@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if a new image is uploaded
     if ($_FILES['room_image']['size'] > 0) {
-        $uploadDir = '../img/rooms/';
+        $uploadDir = '../../img/rooms/';
         $uploadFile = $uploadDir . basename($_FILES['room_image']['name']);
 
         if (move_uploaded_file($_FILES['room_image']['tmp_name'], $uploadFile)) {

@@ -2,7 +2,7 @@
 // delete_room.php
 
 // Include your database connection file
-include '../config/connection.php';
+include '../../config/connection.php';
 
 // Check if the room_id parameter is set
 if (isset($_GET['vehicle_id'])) {
@@ -22,7 +22,7 @@ if (isset($_GET['vehicle_id'])) {
 
         if ($result) {
             // Deletion successful, delete the corresponding folder
-            $vehicleImagePath = "../img/vehicle_img/" . $vehicleName . "/";
+            $vehicleImagePath = "../../img/vehicle_img/" . $vehicleName . "/";
 
             if (file_exists($vehicleImagePath)) {
                 // Delete all files in the directory
@@ -55,7 +55,7 @@ if (isset($_GET['vehicle_id'])) {
     }
 } else {
     // If room_id is not set, redirect to an error page or the home page
-    header('Location: ../error.php');
+    header('Location: ../../error.php');
     exit();
 }
 ?>

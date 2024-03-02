@@ -1,6 +1,6 @@
 <?php
 // update_room.php
-include '../config/connection.php';
+include '../../config/connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
              // Delete selected images
     foreach ($selectedImages as $imageName) {
-        $imagePath = "../img/room_img/".$roomName."/" . $imageName;
+        $imagePath = "../../img/room_img/".$roomName."/" . $imageName;
 
         // Check if the file exists before attempting to delete
         if (file_exists($imagePath)) {

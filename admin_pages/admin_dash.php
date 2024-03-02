@@ -469,16 +469,12 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
                         </div>
 
                         <!-- Add space for the cards -->
-                        <div class="mt-4"></div>
-
-                        <div class="text-center">
-                            <div class="row">
-                                <div class="col">
+                        <div class="col-4 text-center">
+                            <div class="card custom-card shadow">
+                                <div class="card-body">
                                     <h3 class="chart-title">Cancellation Rate: <?php echo number_format($cancellationRate, 2); ?>%</h3>
                                 </div>
                             </div>
-                        </div>
-
                         </div>
                         <!-- /.container-fluid -->
 

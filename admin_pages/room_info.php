@@ -39,7 +39,7 @@ if (isset($_GET['room_id'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>NULR Admin | Room Info</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -139,7 +139,7 @@ if (isset($_GET['room_id'])) {
                                 // Display room images in the carousel
                                 foreach ($images as $index => $image) {
                                     echo '<div class="carousel-item' . ($index === 0 ? ' active' : '') . '">';
-                                    echo '<img src="' . $image . '" class="d-block w-100" alt="Room Image ' . ($index + 1) . '">';
+                                    echo '<img src="' . $image . '" class="d-block" alt="Room Image ' . ($index + 1) . '">';
                                     echo '</div>';
                                 }
                                 ?>
@@ -238,172 +238,158 @@ if (isset($_GET['room_id'])) {
                                     echo "<option disabled>No colleges found</option>";
                                 }
                                 ?>
-                            </select>
-                        </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label for="room" class="form-label">Room</label>
+                                            <select class="form-select" aria-label="Default select example" id="room" name="room" required>
+                                                <option selected>None</option>
+                                                <?php
+                                                // Fetch rooms from the database
+                                                $query = "SELECT name FROM rooms";
+                                                $result = mysqli_query($connection, $query);
+                                                if ($result && mysqli_num_rows($result) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        $roomName = $row['name'];
+                                                        echo "<option value='$roomName'>$roomName</option>";
+                                                    }
+                                                } else {
+                                                    echo "<option disabled>No rooms found</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
 
-                        <div class="mb-3" id="orgDiv">
-                            <label for="org" class="form-label">Organization</label>
-                            <select class="form-select" aria-label="Default select example" id="org" name="org" required>
-                                <option  selected>None</option>
-                                <?php
-                                // Fetch colleges from the database
-                                $query = "SELECT name FROM organizations";
-                                $result = mysqli_query($connection, $query);
-                                if ($result && mysqli_num_rows($result) > 0) {
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        $orgName = $row['name'];
-                                        echo "<option value='$orgName'>$orgName</option>";
-                                    }
-                                } else {
-                                    echo "<option disabled>No colleges found</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="mb-3" id="adviserEmailContainer">
-                                <label for="adviserEmail" class="form-label">Adviser's E-mail <span class="required">*</span></label>
-                            <input  class="form-control" id="adviserEmail" name="adviserEmail" required >
-                            </div>
+                                        <div class="mb-3" id="orgDiv">
+                                            <label for="org" class="form-label">Organization</label>
+                                            <select class="form-select" aria-label="Default select example" id="org" name="org" required>
+                                                <option selected>None</option>
+                                                <?php
+                                                // Fetch colleges from the database
+                                                $query = "SELECT name FROM organizations";
+                                                $result = mysqli_query($connection, $query);
+                                                if ($result && mysqli_num_rows($result) > 0) {
+                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                        $orgName = $row['name'];
+                                                        echo "<option value='$orgName'>$orgName</option>";
+                                                    }
+                                                } else {
+                                                    echo "<option disabled>No colleges found</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
 
+                                        <div class="mb-3" id="adviserEmailContainer">
+                                            <label for="adviserEmail" class="form-label">Adviser's E-mail <span class="required">*</span></label>
+                                            <input class="form-control" id="adviserEmail" name="adviserEmail" required>
+                                        </div>
 
+                                        <hr>
+                                        <h4>Activity Details</h4>
+                                        <div class="mb-3">
+                                            <label for="activityType" class="form-label">Activity Type<span class="required">*</span></label>
+                                            <select class="form-select" aria-label="Default select example" id="activityType" name="activityType" required>
+                                                <option value="" disabled selected>Select One</option>
+                                                <option value="Course Activity">Course Activity</option>
+                                                <option value="Org Activity">Org Activity</option>
+                                                <option value="Event">Event</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="activityName" class="form-label">Activity Name <span class="required">*</span></label>
+                                            <input type="text" class="form-control" id="activityName" name="activityName" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="numOfAttendees" class="form-label">No. of Attendees <span class="required">*</span></label>
+                                            <input type="number" class="form-control" id="numOfAttendees" name="numOfAttendees" required min="1" value="1">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="datepicker" class="form-label">Date(s) <span class="required">*</span></label>
+                                            <input class="form-control" type="text" id="datepicker" name="reservation-date1" required>
+                                            <small class="text-secondary">Select the same date twice for one day. Select two different dates for multiple days.</small>
+                                        </div>
 
-                            <hr>
-                            <h4>Activity Details</h4>
-                            <div class="mb-3">
-                            <label for="activityType" class="form-label">Activity Type<span class="required">*</span></label>
-                            <select class="form-select" aria-label="Default select example" id="activityType" name="activityType" required>
-                                <option value="" disabled selected>Select One</option>
-                                <option value="Course Activity">Course Activity</option>
-                                <option value="Org Activity">Org Activity</option>
-                                <option value="Event">Event</option>
-                            </select>
-                        </div>
-                            <div class="mb-3">
-                                <label for="activityName" class="form-label">Activity Name <span class="required">*</span></label>
-                                <input type="text" class="form-control" id="activityName" name="activityName" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="numOfAttendees" class="form-label">No. of Attendees <span class="required">*</span></label>
-                                <input type="number" class="form-control" id="numOfAttendees" name="numOfAttendees" required min="1"  value="1">
-                            </div>
-                            <div class="mb-3">
-                                <label for="datepicker" class="form-label">Date(s) <span class="required">*</span></label>
-                                <input class="form-control" type="text" id="datepicker" name="reservation-date1" required>
-                                <small class="text-secondary">Select the same date twice for one day. Select two different dates for multiple days.</small>
-                            </div>
+                                        <input type="hidden" id="reservation-date" name="reservation-date" />
 
-                            <input type="hidden" id="reservation-date" name="reservation-date" />
+                                        <div id="timeSlot" class="mb-3">
+                                            <label class="form-label" for="timeSlotSingle" id="timeSlotSingleLabel">Select Time:</label>
+                                            <select id="timeSlotSingle" class="form-control custom-select" multiple required></select>
+                                            <small class="text-secondary" id="small-text">Click for one time slot. Click and drag for multiple time slots.</small>
+                                            <br>
+                                            <label class="form-label" for="selectedTimeSingle" id="selectedTimeSingleLabel">Selected Time Range: <span class="required">*</span></label>
+                                            <input type="text" id="selectedTimeSingle" class="form-control" readonly name="time-slot" required>
+                                        </div>
 
+                                        <div id="timeSlotMultiDateContainer" style="display: none;">
+                                            <!-- Dynamically generated time slot inputs will be added here -->
+                                        </div>
+                                        <input type="hidden" id="hiddenTimeRanges" name="time-slot" />
 
-                            <!-- time slot -->
+                                        <div class="mb-3">
+                                            <label for="speakerName" class="form-label">Speaker's Name</label>
+                                            <input type="text" class="form-control" id="speakerName" name="speakerName">
+                                        </div>
 
-                            <!-- time slot for single date -->
-
-                        <div id="timeSlot" class="mb-3">
-                            <label class="form-label" for="timeSlotSingle" id="timeSlotSingleLabel">Select Time:</label>
-                            <select id="timeSlotSingle" class="form-control custom-select" multiple required></select>
-                            <small class="text-secondary" id="small-text">Click for one time slot. Click and drag for multiple time slots.</small>
-                            <br>
-                            <label class="form-label" for="selectedTimeSingle" id="selectedTimeSingleLabel">Selected Time Range: <span class="required">*</span></label>
-                            <input type="text" id="selectedTimeSingle" class="form-control" readonly name="time-slot" required>
-                        </div>
-
-
-                        <!-- time slots for multiple dates -->
-                        <div id="timeSlotMultiDateContainer" style="display: none;">
-                            <!-- Dynamically generated time slot inputs will be added here -->
-                        </div>
-                        <input type="hidden" id="hiddenTimeRanges" name="time-slot" />
-
-
-
-
-                            <div class="mb-3">
-                                <label for="speakerName" class="form-label">Speaker's Name</label>
-                                <input type="text" class="form-control" id="speakerName" name="speakerName">
-                            </div>
-                            <hr>
-                            <h4>Items Needed</h4>
-                            <div class="row">
-                                <div class="col-6 mb-3">
-                                    <label for="items" class="form-label">Select Items</label>
-                                    <select class="form-select" aria-label="Default select example" id="items" onchange="toggleOthersInput()" name="selectedItem">
-                                        <option disabled selected>Choose Item</option>
-                                        <option value="table">Table</option>
-                                        <option value="chairs">Chairs</option>
-                                        <option value="bulletin-board">Bulletin Board</option>
-                                        <option value="sound-system">Sound System</option>
-                                        <option value="flag">Flag</option>
-                                        <option value="others">Others</option>
-                                    </select>
-                                </div>
-                                <div class="col-6 mb-3">
-                                    <label for="quantity" class="form-label">Quantity</label>
-                                    <div class="d-flex">
+                                        <hr>
+                                        <h4>Items Needed</h4>
                                         <div class="row">
-                                        <div class="col-8">
-                            <input type="number" class="form-control pr-3" id="quantity" name="quantity" min="1"  value="1">
-                        </div>
-                                            <div class="col-3">
-                                                <button type="button" class="btn btn-primary addBtn">Add</button>
+                                            <div class="col-6 mb-3">
+                                                <label for="items" class="form-label">Select Items</label>
+                                                <select class="form-select" aria-label="Default select example" id="items" onchange="toggleOthersInput()" name="selectedItem">
+                                                    <option disabled selected>Choose Item</option>
+                                                    <option value="table">Table</option>
+                                                    <option value="chairs">Chairs</option>
+                                                    <option value="bulletin-board">Bulletin Board</option>
+                                                    <option value="sound-system">Sound System</option>
+                                                    <option value="flag">Flag</option>
+                                                    <option value="others">Others</option>
+                                                </select>
                                             </div>
+                                            <div class="col-6 mb-3">
+                                                <label for="quantity" class="form-label">Quantity</label>
+                                                <div class="d-flex">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            <input type="number" class="form-control pr-3" id="quantity" name="quantity" min="1" value="1">
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <button type="button" class="btn btn-primary addBtn">Add</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3" id="othersInputContainer" style="display: none;">
+                                            <label for="othersInput" class="form-label">Specify Other Item</label>
+                                            <input type="text" class="form-control" id="othersInput" name="othersInput">
+                                        </div>
+                                        <div class="mb-3">
+                                            <p>Selected Items:</p>
+                                            <ul id="selectedItemsList"></ul>
+                                        </div>
+
+                                        <input class="d-none" name="selectedItems" id="selectedItemsInput" />
+
+                                        <div class="mb-3">
+                                            <label for="fileUpload" class="form-label">Upload Photo of School ID <span class="required">*</span></label>
+                                            <input type="file" class="form-control" id="fileUpload" name="fileUpload" accept="image/*" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="remarks" class="form-label">Remarks</label>
+                                            <textarea class="form-control" id="remarks" name="remarks" rows="3"></textarea>
+                                        </div>
+
+                                        <div class="text-end">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="mb-3" id="othersInputContainer" style="display: none;">
-                                <label for="othersInput" class="form-label">Specify Other Item</label>
-                                <input type="text" class="form-control" id="othersInput" name="othersInput">
-                            </div>
-                            <div class="mb-3">
-                                <p>Selected Items:</p>
-                                <ul id="selectedItemsList"></ul>
-                            </div>
-
-                            <input class="d-none" name="selectedItems" id="selectedItemsInput" />
-
-                            <div class="mb-3">
-                            <label for="fileUpload" class="form-label">Upload Photo of School ID <span class="required">*</span></label>
-                            <input type="file" class="form-control" id="fileUpload" name="fileUpload" accept="image/*" required>
-                        </div>
-
-                            <div class="mb-3">
-                            <label for="remarks" class="form-label">Remarks</label>
-                            <textarea class="form-control" id="remarks" name="remarks" rows="3"></textarea>
-
-                        </div>
-                        <div class="text-end">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" >Submit</button>
-                        </div>
-                        </form>
-
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; NU Laguna Reservation 2024</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">

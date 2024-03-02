@@ -1,6 +1,6 @@
 <?php
 // update_vehicle.php
-include '../config/connection.php';
+include '../../config/connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -22,7 +22,7 @@ if ($updateQuery->execute()) {
 
     // Delete selected images
     foreach ($selectedImages as $imageName) {
-        $imagePath = "../img/vehicle_img/" . $vehicleName . "/" . $imageName;
+        $imagePath = "../../img/vehicle_img/" . $vehicleName . "/" . $imageName;
 
         // Check if the file exists before attempting to delete
         if (file_exists($imagePath)) {

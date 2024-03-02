@@ -1,5 +1,5 @@
 <?php
-include '../config/connection.php';
+include '../../config/connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoryId'])) {
     // Sanitize the input

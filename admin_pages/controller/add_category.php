@@ -1,5 +1,5 @@
 <?php
-include '../config/connection.php';
+include '../../config/connection.php';
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the category name is not empty
     if (!empty($categoryName)) {
         // Create a folder for the category images
-        $imageFolder = '../img/category_img/' . $categoryName . '/';
+        $imageFolder = '../../img/category_img/' . $categoryName . '/';
 
         // Check if the folder does not exist, then create it
         if (!file_exists($imageFolder)) {
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($insertResult) {
             // Category added successfully, you may want to redirect or show a success message
-            header('Location: index.php'); // Adjust the URL
+            header('Location: ../manage_rooms.php'); // Adjust the URL
             exit();
         } else {
             // Error inserting category into the database
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
     // Redirect if the form is not submitted
-    header('Location: index.php'); // Adjust the URL
+    header('Location: ../manage_rooms.php'); // Adjust the URL
     exit();
 }
 ?>
