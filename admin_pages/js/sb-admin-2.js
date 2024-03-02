@@ -5,6 +5,10 @@
   $("#sidebarToggle, #sidebarToggleTop").on('click', function(e) {
     $("body").toggleClass("sidebar-toggled");
     $(".sidebar").toggleClass("toggled");
+    
+    // Toggle the text visibility
+    $(".sidebar-text").toggleClass("hidden");
+    
     if ($(".sidebar").hasClass("toggled")) {
       $('.sidebar .collapse').collapse('hide');
     };

@@ -148,7 +148,6 @@
             display: none;
         }
     }
-
     hr.sidebar-divider {
         margin: 0 1rem 1rem;
     }
@@ -269,6 +268,9 @@
         }
 
         &.toggled {
+            .sidebar-text {
+                display: none;
+            }
             overflow: visible;
             width: $sidebar-collapsed-width !important;
 

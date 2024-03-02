@@ -193,8 +193,11 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
                         </thead>
                         <tbody>
                             <?php
+
+                            // -----dito ka magpapalit later to approved, cancelled, or pending------ //
+
                             // Fetch data from the database and populate the table rows
-                            $query = "SELECT * FROM reservationdb.reservations WHERE status='pending'";
+                            $query = "SELECT * FROM reservationdb.reservations WHERE status='Pending'"; // Change this query to filter by status dito!!
                             $result = mysqli_query($connection, $query);
 
                             while ($row = mysqli_fetch_assoc($result)) {

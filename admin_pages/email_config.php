@@ -344,23 +344,16 @@ if (mysqli_num_rows($result) > 0) {
                             </div>
                         </div>
 
-                        <!-- DataTables Query -->
-                        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-                        <script>
-                        $(document).ready(function() {
-                            $('#collegeTable').DataTable({
-                                paging: true, // Enable pagination
-                                searching: true // Enable search
-                            });
-                        });
-                        </script>
-
                         <!-- Bootstrap core JavaScript-->
                         <script src="vendor/jquery/jquery.min.js"></script>
                         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
                         <!-- Core plugin JavaScript-->
                         <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+                        
+                        <!-- DataTables JavaScript -->
+                        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+                        <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
 
                         <!-- Custom scripts for all pages-->
                         <script src="js/sb-admin-2.min.js"></script>
@@ -372,6 +365,17 @@ if (mysqli_num_rows($result) > 0) {
                         <script src="js/demo/chart-area-demo.js"></script>
                         <script src="js/demo/chart-pie-demo.js"></script>
 
+                        <!-- DataTables Query -->
+                        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+                        
+                        <script>
+                        $(document).ready(function() {
+                            $('#collegeTable').DataTable({
+                                paging: true, // Enable pagination
+                                searching: true // Enable search
+                            });
+                        });
+                        </script>           
 </body>
 
 </html>

@@ -444,7 +444,7 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
                                 <div class="card custom-card shadow">
                                     <div class="card-body">
                                         <h3 class="chart-title">Most Booked Rooms</h3>
-                                        <canvas id="departmentChart"></canvas>
+                                        <canvas id="bookedroomsGraph"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -470,9 +470,9 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
 
                         <!-- Add space for the cards -->
                         <div class="col-4 text-center">
-                            <div class="card custom-card shadow">
+                            <div class="card custom-card shadow text-muted" style="background: linear-gradient(to bottom, #8B0000, #FF0000);">
                                 <div class="card-body">
-                                    <h3 class="chart-title">Cancellation Rate: <?php echo number_format($cancellationRate, 2); ?>%</h3>
+                                    <h3 class="chart-title" style="color: white;">Cancellation Rate: <?php echo number_format($cancellationRate, 2); ?>%</h3>
                                 </div>
                             </div>
                         </div>
@@ -522,11 +522,11 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
         </div>
     </div>
     <script>
-                // Use JavaScript to render the pie chart for room reservation
+                // Use JavaScript to render the bar graph for most booked rooms
                 var roomData = <?php echo $room_json; ?>;
-                var ctx1 = document.getElementById('departmentChart').getContext('2d');
-                var myPieChart = new Chart(ctx1, {
-                    type: 'pie',
+                var ctx1 = document.getElementById('bookedroomsGraph').getContext('2d');
+                var myBarChart = new Chart(ctx1, {
+                    type: 'bar',
                     data: {
                         labels: roomData.map(item => item.room_name),
                         datasets: [{

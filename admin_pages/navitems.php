@@ -28,18 +28,23 @@
 
 
         <!-- Nav Item - Room Reservation -->
-        <li class="nav-item">
-            <a class="nav-link" href="room_reservations.php">
-                <i class="fas fa-fw fa-calendar nav_icon"></i>
-                <span>Room Reservation</span>
-            </a>
-        </li>
+        <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="roomReservationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-fw fa-calendar nav_icon"></i>
+        <span class="sidebar-text">Room Reservation</span>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="roomReservationDropdown">
+        <a class="dropdown-item" href="approved_reservations.php">Approved Reservations</a>
+        <a class="dropdown-item" href="pending_reservations.php">Pending Reservations</a>
+        <a class="dropdown-item" href="cancelled_reservations.php">Cancelled Reservations</a>
+    </div>
+</li>
 
         <!-- Nav Item - Vehicle Reservation -->
         <li class="nav-item">
             <a class="nav-link" href="vehicle_reservations.php">
                 <i class="fas fa-fw fa-car nav_icon"></i> 
-                <span>Vehicle Reservation</span>
+                <span class="sidebar-text">Vehicle Reservation</span>
             </a>
         </li>
 
