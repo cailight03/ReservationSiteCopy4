@@ -5,7 +5,6 @@
     padding: 0%;
     box-sizing: border-box;
  
-
 }
 
 :root {
@@ -20,7 +19,7 @@
 
 body {
     font-family: "Poppins", sans-serif;
-   
+    padding-left: 10%;
   }
 
 
@@ -290,7 +289,6 @@ grid-area: first;
   justify-content: space-between;
   margin-bottom: 5px;
 }
-
 
 
 
