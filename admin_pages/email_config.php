@@ -289,8 +289,8 @@ if (mysqli_num_rows($result) > 0) {
                                         <td><?php echo $college['name']; ?></td>
                                         <td><?php echo $college['email']; ?></td>
                                         <td>
-                                            <a href="controller/editcollege.php?id=<?php echo $college['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
-                                            <a href="controller/deletecollege.php?id=<?php echo $college['id']; ?>" class="btn btn-danger btn-sm">Delete</a>
+                                            <a href="controller/edit_email_config.php?id=<?php echo $college['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
+                                            <a href="controller/delete_email_config.php?id=<?php echo $college['id']; ?>" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -298,7 +298,7 @@ if (mysqli_num_rows($result) > 0) {
                         </table>
 
                         <!-- Add new college button -->
-                        <a href="controller/addcollege.php" class="btn btn-success">Add New College</a>
+                        <a href="controller/add_email_config.php" class="btn btn-success">Add New College</a>
 
                         </div>
                         <!-- End of Main Content -->
@@ -365,8 +365,7 @@ if (mysqli_num_rows($result) > 0) {
                         <script src="js/demo/chart-area-demo.js"></script>
                         <script src="js/demo/chart-pie-demo.js"></script>
 
-                        <!-- DataTables Query -->
-                        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+            
                         
                         <script>
                         $(document).ready(function() {

@@ -28,8 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    
-
     // Insert data into the rooms table
     $insertQuery = "INSERT INTO rooms (room_name, room_description, room_img_path, category_id) VALUES (?, ?, ?, ?)";
     $stmt = $connection->prepare($insertQuery);
@@ -39,15 +37,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("sssi", $roomName, $roomDescription, $roomImagePathForDB, $categoryId);
 
         if ($stmt->execute()) {
-            // Insert successful, do something if needed
+            // Insert successful, log the audit trail
+            session_start();
+            $userId = $_SESSION['user_id']; // Assuming you have user authentication 
+            $action = "INSERT";
+            $timestamp = date("Y-m-d H:i:s");
+            $oldValues = ""; // No old values for insertion
+            $newValues = "Name: $roomName, Description: $roomDescription, Image Path: $roomImagePathForDB, Category ID: $categoryId";
+
+            // Insert the audit trail record
+            $auditQuery = "INSERT INTO room_audit (room_id, room_name, room_description, room_img_path, category_id, action, old_value, new_value, timestamp, user_id) VALUES (LAST_INSERT_ID(), ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $auditStmt = $connection->prepare($auditQuery);
+            $auditStmt->bind_param("ssssssssi", $roomName, $roomDescription, $roomImagePathForDB, $categoryId, $action, $oldValues, $newValues, $timestamp, $userId);
+            $auditStmt->execute();
+            $auditStmt->close();
+
+            // Redirect after successful insertion
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit();
         } else {
             // Insert failed, handle the error
             echo "Error: " . $stmt->error;
         }
 
         $stmt->close();
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
-        exit();
     } else {
         // Statement preparation failed, handle the error
         echo "Error preparing statement: " . $connection->error;
