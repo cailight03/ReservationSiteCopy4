@@ -7,13 +7,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $vehicleName = $_POST['vehicle_name'];
     $vehicleDescription = $_POST['vehicle_description'];
 
-    // Create a folder for room images
+    // Create a folder for vehicle images
     $vehicleImagePath = "../../img/vehicle_img/" . $vehicleName . "/";
     if (!file_exists($vehicleImagePath)) {
         mkdir($vehicleImagePath, 0777, true);
     }
 
-    // Upload room images to the folder
+    // Upload vehicle images to the folder
     $uploadedImages = [];
     foreach ($_FILES['vehicle_images']['name'] as $key => $value) {
         $tempName = $_FILES['vehicle_images']['tmp_name'][$key];
@@ -27,8 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-
-    // Insert data into the rooms table
+    // Insert data into the vehicles table
     $insertQuery = "INSERT INTO vehicles (vehicle_name, vehicle_description, vehicle_img_path) VALUES (?, ?, ?)";
     $stmt = $connection->prepare($insertQuery);
 
@@ -37,7 +36,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("sss", $vehicleName, $vehicleDescription, $vehicleImagePathForDB);
 
         if ($stmt->execute()) {
-            // Insert successful, do something if needed
+            // Insert successful, retrieve the vehicle_id
+            $vehicleId = $stmt->insert_id;
+
+            // Do something with the vehicle_id if needed
+            echo "Vehicle inserted with ID: " . $vehicleId;
+
+            // Log the insert action into the vehicle audit trail
+            session_start();
+            $userId = $_SESSION['user_id']; // Assuming you have user authentication 
+            $action = "INSERT";
+            $timestamp = date("Y-m-d H:i:s");
+
+            $auditQuery = "INSERT INTO vehicle_audit (vehicle_id, vehicle_name, vehicle_description, vehicle_img_path, action, old_value, new_value, timestamp, user_id) VALUES (?, ?, ?, ?, ?, '', '', ?, ?)";
+            $stmtAudit = $connection->prepare($auditQuery);
+            $stmtAudit->bind_param("isssssi", $vehicleId, $vehicleName, $vehicleDescription, $vehicleImagePathForDB, $action, $timestamp, $userId);
+            $stmtAudit->execute();
         } else {
             // Insert failed, handle the error
             echo "Error: " . $stmt->error;

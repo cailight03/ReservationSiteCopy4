@@ -1,26 +1,33 @@
 <?php
-// delete_room.php
+// delete_vehicle.php
 
 // Include your database connection file
 include '../../config/connection.php';
 
-// Check if the room_id parameter is set
+// Check if the vehicle_id parameter is set
 if (isset($_GET['vehicle_id'])) {
     $vehicleId = $_GET['vehicle_id'];
 
-    // Retrieve the room's name
-    $getVehicleNameQuery = "SELECT vehicle_name FROM vehicles WHERE id = $vehicleId";
-    $vehicleNameResult = $connection->query($getVehicleNameQuery);
+    // Retrieve the vehicle's data
+    $getVehicleDataQuery = "SELECT vehicle_name, vehicle_description, vehicle_img_path FROM vehicles WHERE id = ?";
+    $stmt = $connection->prepare($getVehicleDataQuery);
+    $stmt->bind_param("i", $vehicleId);
+    $stmt->execute();
+    $vehicleDataResult = $stmt->get_result();
 
-    if ($vehicleNameResult) {
-        $vehicleData = $vehicleNameResult->fetch_assoc();
+    if ($vehicleDataResult->num_rows > 0) {
+        $vehicleData = $vehicleDataResult->fetch_assoc();
         $vehicleName = $vehicleData['vehicle_name'];
+        $vehicleDescription = $vehicleData['vehicle_description'];
+        $vehicleImgPath = $vehicleData['vehicle_img_path'];
 
         // Prepare and execute the DELETE query
-        $deleteVehicleQuery = "DELETE FROM vehicles WHERE id = $vehicleId";
-        $result = $connection->query($deleteVehicleQuery);
+        $deleteVehicleQuery = "DELETE FROM vehicles WHERE id = ?";
+        $stmt = $connection->prepare($deleteVehicleQuery);
+        $stmt->bind_param("i", $vehicleId);
+        $stmt->execute();
 
-        if ($result) {
+        if ($stmt->affected_rows > 0) {
             // Deletion successful, delete the corresponding folder
             $vehicleImagePath = "../../img/vehicle_img/" . $vehicleName . "/";
 
@@ -33,6 +40,17 @@ if (isset($_GET['vehicle_id'])) {
 
                 // Remove the directory
                 if (rmdir($vehicleImagePath)) {
+                    // Log the deletion action into the vehicle audit trail
+                    session_start();
+                    $userId = $_SESSION['user_id']; // Assuming you have user authentication 
+                    $action = "DELETE";
+                    $timestamp = date("Y-m-d H:i:s");
+
+                    $auditQuery = "INSERT INTO vehicle_audit (vehicle_id, vehicle_name, vehicle_description, vehicle_img_path, action, old_value, new_value, timestamp, user_id) VALUES (?, ?, ?, ?, ?, '', '', ?, ?)";
+                    $stmt = $connection->prepare($auditQuery);
+                    $stmt->bind_param("isssssi", $vehicleId, $vehicleName, $vehicleDescription, $vehicleImgPath, $action, $timestamp, $userId);
+                    $stmt->execute();
+
                     // Redirect to the page where the user came from
                     header('Location: ' . $_SERVER['HTTP_REFERER']);
                     exit();
@@ -50,11 +68,11 @@ if (isset($_GET['vehicle_id'])) {
             die("Error deleting vehicle: " . $connection->error);
         }
     } else {
-        // Unable to fetch room name, display an error message
-        die("Error fetching vehicle data: " . $connection->error);
+        // Unable to fetch vehicle data, display an error message
+        die("Error fetching vehicle data: Vehicle not found");
     }
 } else {
-    // If room_id is not set, redirect to an error page or the home page
+    // If vehicle_id is not set, redirect to an error page or the home page
     header('Location: ../../error.php');
     exit();
 }
