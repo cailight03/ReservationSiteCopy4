@@ -34,20 +34,25 @@
         <span class="sidebar-text">Room Reservation</span>
     </a>
     <div class="dropdown-menu" aria-labelledby="roomReservationDropdown">
-        <a class="dropdown-item" href="approved_reservations.php">Approved Reservations</a>
-        <a class="dropdown-item" href="pending_reservations.php">Pending Reservations</a>
-        <a class="dropdown-item" href="cancelled_reservations.php">Cancelled Reservations</a>
+        <a class="dropdown-item" href="approved_roomReservations.php">Approved Reservations</a>
+        <a class="dropdown-item" href="pending_roomReservations.php">Pending Reservations</a>
+        <a class="dropdown-item" href="cancelled_roomReservations.php">Cancelled Reservations</a>
     </div>
 </li>
 
         <!-- Nav Item - Vehicle Reservation -->
-        <li class="nav-item">
-            <a class="nav-link" href="vehicle_reservations.php">
-                <i class="fas fa-fw fa-car nav_icon"></i> 
-                <span class="sidebar-text">Vehicle Reservation</span>
-            </a>
-        </li>
-
+        <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="vehicleReservationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-fw fa-calendar nav_icon"></i>
+        <span class="sidebar-text">Vehicle Reservation</span>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="vehicleReservationDropdown">
+        <a class="dropdown-item" href="approved_vehicleReservations.php">Approved Reservations</a>
+        <a class="dropdown-item" href="pending_vehicleReservations.php">Pending Reservations</a>
+        <a class="dropdown-item" href="cancelled_vehicleReservations.php">Cancelled Reservations</a>
+    </div>
+</li>
+        
         <!-- Nav Item - Manage Rooms -->
         <li class="nav-item">
             <a class="nav-link" href="manage_rooms.php">
@@ -73,30 +78,34 @@
         </li>
 
         <!-- Nav Item - Audit Trail -->
-        <li class="nav-item">
-            <a class="nav-link" href="audit_trail.php">
-                <i class="fas fa-fw fa-clipboard-list nav_icon"></i>
-                <span>Audit Trail</span>
-            </a>
-        </li>
+        <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="auditTrailDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-fw fa-clipboard-list nav_icon"></i>
+        <span class="sidebar-text">Audit Trail</span>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="auditTrailDropdown">
+        <a class="dropdown-item" href="category_management_logs.php">Venues Audit Trail</a>
+        <a class="dropdown-item" href="room_management_logs.php">Rooms Audit Trail</a>
+        <a class="dropdown-item" href="vehicle_management_logs.php">Vehicles Audit Trail</a>
+    </div>
+</li>
 
-        <!-- Nav Item - Sign Out -->
-        <li class="nav-item">
-            <a class="nav-link" href="logout_admin.php">
-                <i class="fas fa-fw fa-sign-out-alt nav_icon"></i>
-                <span>Sign Out</span>
-            </a>
-        </li>
 
-            
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+    <!-- Nav Item - Sign Out -->
+    <li class="nav-item text-center">
+        <a class="nav-link" href="logout_admin.php">
+            <i class="fas fa-fw fa-sign-out-alt nav_icon"></i>
+            <span>Sign Out</span>
+        </a>
+    </li>
 
             <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
+            <!-- <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+            </div> -->
 
         
 

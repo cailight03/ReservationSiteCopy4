@@ -113,7 +113,7 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>NULR Admin - Approved Reservations</title>
+    <title>NULR Admin - Cancelled Room Reservations</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -170,7 +170,7 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    <h2 class="grid-header" id="header">Cancelled Reservations</h2>
+                    <h2 class="grid-header" id="header">Cancelled Room Reservations</h2>
 
                     <!-- Table to display reservations -->
                     <table id="roomresTable" class="table table-hover table-bordered">
@@ -184,11 +184,10 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
                                 <th>Date</th>
                                 <th>Time Slot</th>
                                 <th>Room Name</th>
+                                <th>Number of Attendees</th>
                                 <th>Items Needed</th>
                                 <th>Remarks</th>
                                 <th>Status</th>
-                                <th>Number of Attendees</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -210,6 +209,7 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
                                 echo "<td>{$row['date']}</td>";
                                 echo "<td>{$row['time_slot']}</td>";
                                 echo "<td>{$row['room_name']}</td>";
+                                echo "<td>{$row['num_of_attendees']}</td>";
 
                                 // Decode the JSON string for items_needed
                                 $items_needed = json_decode($row['items_needed'], true);
@@ -237,10 +237,9 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
 
                                 echo "<td>{$row['remarks']}</td>";
                                 echo "<td>{$row['status']}</td>";
-                                echo "<td>{$row['num_of_attendees']}</td>";
-                                echo "<td>";
+                                // echo "<td>";
 
-                                echo "</td>";
+                                // echo "</td>";
                                 echo "</tr>";
                             }
 

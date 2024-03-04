@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 // Database configuration
 $servername = 'localhost'; 
 $username = 'root';
-$password = '12345';
+$password = '';
 $dbname = 'reservationdb';
 
 // Create connection
@@ -20,7 +20,7 @@ if ($conn->connect_error) {
 
 // Fetch audit trail logs from the database 
 $sql = "SELECT a.timestamp, COALESCE(u.id, 'N/A') AS user_id, COALESCE(u.requestor, 'N/A') AS name, a.reservation_id, a.action 
-        FROM audit_logs a 
+        FROM audit_logs a
         LEFT JOIN reservations u ON a.user_id = u.id 
         ORDER BY a.timestamp DESC";
 $result = $conn->query($sql);

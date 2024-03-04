@@ -26,7 +26,7 @@ if (!isset($_SESSION['user_id'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>NULR Admin | Vehicle Management Logs</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -73,76 +73,72 @@ if (!isset($_SESSION['user_id'])) {
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                        <h2 class="grid-header" id="header">Approved Reservations</h2>
+                        <h2 class="grid-header" id="header">Vehicle Management Logs</h2>
 
                         <!-- Table to display reservations -->
-                        <table id="approvedreservationsTable" class="table table-hover table-bordered">
+                        <table id="vehicleManagementLogs" class="table table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Reservation ID</th>
-                                    <th>Date Submitted</th>
-                                    <th>Department</th>
-                                    <th>Requestor</th>
-                                    <th>Activity</th>
-                                    <th>Date</th>
-                                    <th>Time Slot</th>
-                                    <th>Room Name</th>
-                                    <th>Items Needed</th>
-                                    <th>Remarks</th>
-                                    <th>Status</th>
-                                    <th>Number of Attendees</th>
+                                    <th>Audit ID</th>
+                                    <th>Vehicle ID</th>
+                                    <th>Vehicle Name</th>
+                                    <th>Vehicle Description</th>
+                                    <th>Action</th>
+                                    <th>Previous Value</th>
+                                    <th>New Value</th>
+                                    <th>Timestamp</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 // Fetch data from the database and populate the table rows
-                                $query = "SELECT * FROM reservationdb.reservations WHERE status='Approved'";
+                                $query = "SELECT * FROM reservationdb.vehicle_audit ORDER BY timestamp DESC;";
                                 $result = mysqli_query($connection, $query);
 
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr>";
-                                    echo "<td>{$row['id']}</td>";
-                                    echo "<td>{$row['date_submitted']}</td>";
-                                    echo "<td>{$row['department']}</td>";
-                                    echo "<td>{$row['requestor']}</td>";
-                                    echo "<td>{$row['activity_name']}</td>";
-                                    echo "<td>{$row['date']}</td>";
-                                    echo "<td>{$row['time_slot']}</td>";
-                                    echo "<td>{$row['room_name']}</td>";
+                                    echo "<td>{$row['audit_id']}</td>";
+                                    echo "<td>{$row['vehicle_id']}</td>";
+                                    echo "<td>{$row['vehicle_name']}</td>";
+                                    echo "<td>{$row['vehicle_description']}</td>";
+                                    echo "<td>{$row['action']}</td>";
+                                    echo "<td>{$row['old_value']}</td>";
+                                    echo "<td>{$row['new_value']}</td>";
+                                    echo "<td>{$row['timestamp']}</td>";
 
-                                    // Decode the JSON string for items_needed
-                                    $items_needed = json_decode($row['items_needed'], true);
+                                    // // Decode the JSON string for items_needed
+                                    // $items_needed = json_decode($row['items_needed'], true);
 
-                                    // Check if items_needed is not null and is an array
-                                    if (!is_null($items_needed) && is_array($items_needed)) {
-                                        // Initialize an array to store formatted item strings
-                                        $formatted_items = [];
+                                    // // Check if items_needed is not null and is an array
+                                    // if (!is_null($items_needed) && is_array($items_needed)) {
+                                    //     // Initialize an array to store formatted item strings
+                                    //     $formatted_items = [];
 
-                                        // Iterate through each item in items_needed
-                                        foreach ($items_needed as $item) {
-                                            // Build the formatted string (e.g., "table 9")
-                                            $formatted_items[] = $item['item'] . ' ' . $item['quantity'];
-                                        }
+                                    //     // Iterate through each item in items_needed
+                                    //     foreach ($items_needed as $item) {
+                                    //         // Build the formatted string (e.g., "table 9")
+                                    //         $formatted_items[] = $item['item'] . ' ' . $item['quantity'];
+                                    //     }
 
-                                        // Implode the formatted item strings with a comma separator
-                                        $formatted_items_str = implode(', ', $formatted_items);
+                                    //     // Implode the formatted item strings with a comma separator
+                                    //     $formatted_items_str = implode(', ', $formatted_items);
 
-                                        // Output the formatted items
-                                        echo "<td>{$formatted_items_str}</td>";
-                                    } else {
-                                        // If items_needed is null or not an array, display "None"
-                                        echo "<td>None</td>";
-                                    }
+                                    //     // Output the formatted items
+                                    //     echo "<td>{$formatted_items_str}</td>";
+                                    // } else {
+                                    //     // If items_needed is null or not an array, display "None"
+                                    //     echo "<td>None</td>";
+                                    // }
 
-                                    echo "<td>{$row['remarks']}</td>";
-                                    echo "<td>{$row['status']}</td>";
-                                    echo "<td>{$row['num_of_attendees']}</td>";
+                                    // echo "<td>{$row['remarks']}</td>";
+                                    // echo "<td>{$row['status']}</td>";
+                                    // echo "<td>{$row['num_of_attendees']}</td>";
                                     echo "</tr>";
                                 }
                                 ?>
                             </tbody>
                         </table>
-                        <button class="btn btn-primary" id="addButton">Add</button>
+                        <!-- <button class="btn btn-primary" id="addButton">Add</button> -->
                 <!-- /.container-fluid -->
 
             </div>
@@ -152,7 +148,7 @@ if (!isset($_SESSION['user_id'])) {
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; NU Laguna Reservation Site 2024</span>
                     </div>
                 </div>
             </footer>
@@ -316,7 +312,7 @@ if (!isset($_SESSION['user_id'])) {
     <script>
     $(document).ready(function() {
          // Initialize DataTables
-         $('#approvedreservationsTable').DataTable({
+         $('#vehicleManagementLogs').DataTable({
             "paging": true, // Enable pagination
              "searching": true // Enable search functionality
       });
