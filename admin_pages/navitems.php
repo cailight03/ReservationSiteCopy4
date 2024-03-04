@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #1f3a7a;">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin_dash.php">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admin_dashboard.php">
                 <div class="sidebar-brand-icon">
                     <img src="images/nulogo.png" alt="NU Logo" width="32" height="35">
                 </div>
@@ -13,7 +13,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="admin_dash.php">
+                <a class="nav-link" href="admin_dashboard.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -96,7 +96,7 @@
 
     <!-- Nav Item - Sign Out -->
     <li class="nav-item text-center">
-        <a class="nav-link" href="logout_admin.php">
+        <a class="nav-link" href="../login_logout_controller/logout.php">
             <i class="fas fa-fw fa-sign-out-alt nav_icon"></i>
             <span>Sign Out</span>
         </a>

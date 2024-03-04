@@ -6,7 +6,6 @@ include '../config/connection.php';
 // Check if the reservation ID is provided in the URL
 if (isset($_GET['reservationId'])) {
     $reservationId = $_GET['reservationId'];
-    $userEmail = $_GET['userEmail'];
    
     
     // Check if the cancellation form is submitted
@@ -20,6 +19,7 @@ if (isset($_GET['reservationId'])) {
 
         $cancellationSuccess = true;
 }  
+
     // Retrieve reservation details from the database
     $query = "SELECT * FROM vehicle_reservations WHERE id = ?";
 
@@ -186,11 +186,18 @@ if (isset($_GET['reservationId'])) {
         <?php if ($row['status'] === 'Approved'): ?>
             <p><strong>Admin Remarks:</strong> <?php echo $row['admin_remarks']; ?></p>
         <?php endif; ?>
-       
+
+    <?php
+
+echo "<div>
+        <p><strong>Signatory 1: </strong>NU Laguna Reservation ". $row['Act1'] ." ".$row['time1']."</p>
+        <p><strong>Signatory 2: </strong>Sir Richie ".$row['Act2'] ." ".$row['time2'] ."</p>
+      </div>";
+?>
 
         <div class="buttons">
         <?php if ($row['status'] !== 'Cancelled'): ?>
-            <?php if ($row['status'] === 'pending' && $row['date'] !== date('Y-m-d')): ?>
+            <?php if ($row['status'] === 'Pending' && $row['date'] !== date('Y-m-d')): ?>
                 <button class="btn btn-primary reschedule" disabled>Reschedule</button>
             <?php elseif ($row['date'] !== date('Y-m-d')): ?>
                 <a href="#" class="btn btn-primary reschedule" data-bs-toggle="modal" data-bs-target="#rescheduleModal<?php echo $row['id']; ?>">Reschedule</a>
@@ -260,7 +267,7 @@ if (isset($_GET['reservationId'])) {
         <input type="hidden" name="office" value="<?php echo $row['office']; ?>">
         <input type="hidden" name="purpose" value="<?php echo $row['purpose']; ?>">
         <input type="hidden" name="destination" value="<?php echo $row['destination']; ?>">
-        <input type="hidden" name="userEmail" value="<?php echo $userEmail; ?>">
+        <input type="hidden" name="email" value="<?php echo $userEmail; ?>">
         <input type="hidden" name="numOfPassengers" value="<?php echo $row['num_of_passengers']; ?>">
         <input type="hidden" name="date_submitted" value="<?php echo $row['date_submitted']; ?>">
         <input type="hidden" name="uploadFilePath" value="<?php echo $row['uploadFilePath']; ?>">

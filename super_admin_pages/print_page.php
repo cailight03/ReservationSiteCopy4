@@ -10,6 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     // Retrieve form data from URL parameters
     $roomId = isset($_GET['roomId']) ? $_GET['roomId'] : '';
     $roomName = isset($_GET['roomName']) ? $_GET['roomName'] : '';
+    $adviserEmail = isset($_GET['adviserEmail']) ? $_GET['adviserEmail'] : '';
     $fullName = isset($_GET['fullName']) ? $_GET['fullName'] : '';
     $college = isset($_GET['college']) ? $_GET['college'] : '';
     $activityName = isset($_GET['activityName']) ? $_GET['activityName'] : '';
@@ -51,35 +52,32 @@ $result = $stmt->get_result();
 // Fetch the count of matching rows
 $row = $result->fetch_assoc();
 
+$statusQuery = "SELECT * FROM reservations WHERE id = ?";
+
+// Prepare the query
+$statusStmt = $connection->prepare($statusQuery);
+
+// Bind parameters
+$statusStmt->bind_param("i", $reservationId);
+
+// Execute the query
+$statusStmt->execute();
+
+// Get the result
+$statusResult = $statusStmt->get_result();
+
+// Fetch the result
+$statusRow = $statusResult->fetch_assoc();
+
 // Check if any rows were found with the recipientName in any of the sig columns
 if ($row['count'] > 0) {
     // Recipient name exists in the database
     // Print the message
     echo 'You have already approved this reservation.';
-}elseif{
-    // Define a new query to fetch the status
-    $statusQuery = "SELECT status FROM reservations WHERE id = ?";
-    
-    // Prepare the status query
-    $statusStmt = $connection->prepare($statusQuery);
-    
-    // Bind parameters
-    $statusStmt->bind_param("i", $reservationId);
-    
-    // Execute the status query
-    $statusStmt->execute();
-    
-    // Get the result
-    $statusResult = $statusStmt->get_result();
-    
-    // Fetch the status
-    $statusRow = $statusResult->fetch_assoc();
-    
-    // Check if the status is "cancelled"
-    if ($statusRow['status'] === 'Cancelled') {
-        echo 'This reservation has been cancelled by the requestor.';
-    } 
+} elseif ($statusRow['status'] === 'Cancelled') {
+    echo 'This reservation has been cancelled by the requestor.';
 }
+
  else {
 ?>
 <!DOCTYPE html>
@@ -208,6 +206,7 @@ if ($row['count'] > 0) {
         <input type="hidden" name="category_id" value="<?php echo $categoryId; ?>">
         <input type="hidden" name="college" value="<?php echo $college; ?>">
         <input type="hidden" name="userEmail" value="<?php echo $userEmail; ?>">
+        <input type="hidden" name="adviserEmail" value="<?php echo $adviserEmail; ?>">
         <input type="hidden" name="activityName" value="<?php echo $activityName; ?>">
         <input type="hidden" name="numOfAttendees" value="<?php echo $numOfAttendees; ?>">
         <input type="hidden" name="reservation-date" value="<?php echo $date; ?>">
@@ -218,6 +217,7 @@ if ($row['count'] > 0) {
         
         <input type="hidden" name="submissionTime" value="<?php echo $submissionTime; ?>">
         <input type="hidden" name="uploadFilePath" value="<?php echo $uploadFilePath; ?>">
+        
         
         <input type="hidden" name="selectedItems" value="<?php echo htmlspecialchars(json_encode($selectedItems)); ?>">
 

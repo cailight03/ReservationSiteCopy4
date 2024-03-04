@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $college = isset($_GET['college']) ? $_GET['college'] : '';
     $activityName = isset($_GET['activityName']) ? $_GET['activityName'] : '';
     $numOfAttendees = isset($_GET['numOfAttendees']) ? $_GET['numOfAttendees'] : '';
+    $adviserEmail = isset($_GET['adviserEmail']) ? $_GET['adviserEmail'] : '';
     $userEmail = isset($_GET['userEmail']) ? $_GET['userEmail'] : '';
     $recipientName = isset($_GET['recipientName']) ? $_GET['recipientName'] : '';
     $organization = isset($_GET['org']) ? $_GET['org'] : '';
@@ -181,6 +182,7 @@ if ($row['count'] > 0) {
         <input type="hidden" name="userType" value="<?php echo $userType; ?>">
         <input type="hidden" name="activityType" value="<?php echo $activityType; ?>">
         <input type="hidden" name="category_id" value="<?php echo $categoryId; ?>">
+        <input type="hidden" name="adviserEmail" value="<?php echo $adviserEmail; ?>">
         <input type="hidden" name="college" value="<?php echo $college; ?>">
         <input type="hidden" name="userEmail" value="<?php echo $userEmail; ?>">
         <input type="hidden" name="activityName" value="<?php echo $activityName; ?>">

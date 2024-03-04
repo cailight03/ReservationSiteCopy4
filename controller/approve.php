@@ -22,9 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Fetch the user ID from the session
     $reservationId = isset($_POST['reservationId']) ? $_POST['reservationId'] : '';
     $roomId = isset($_POST['room_id']) ? $_POST['room_id'] : '';
+    $categoryId = isset($_POST['category_id']) ? $_POST['category_id'] : '';
     $roomName = isset($_POST['roomName']) ? $_POST['roomName'] : '';
+    $adviserEmail = isset($_POST['adviserEmail']) ? $_POST['adviserEmail'] : '';
     $userType = $_POST[ 'userType'];
-    $categoryId = $_POST['category_id'];
     $organization = $_POST['org'];
     $recipientName = $_POST['recipientName'];
     $activityType = $_POST['activityType'];
@@ -58,7 +59,8 @@ $columns = array(
     'sig2' => 'Sig2',
     'sig3' => 'Sig3',
     'sig4' => 'Sig4',
-    'sig5' => 'Sig5'
+    'sig5' => 'Sig5',
+    'sig6' => 'Sig6'
 );
 
 // Find the first empty column
@@ -79,6 +81,7 @@ foreach ($columns as $columnName => $placeholder) {
 if ($firstEmptyColumn !== null) {
     // Update the first empty column to $recipientName
     $updateQuery = "UPDATE reservations SET $firstEmptyColumn = ? WHERE id = ?";
+    
     $stmt = $connection->prepare($updateQuery);
     $stmt->bind_param("si", $recipientName, $reservationId);
     $stmt->execute();
@@ -106,6 +109,7 @@ if ($firstEmptyColumn !== null) {
         if ($secondEmptyColumn !== null) {
             // Update the second empty column to 'Physical Facilities'
             $updateQuery = "UPDATE reservations SET $secondEmptyColumn = 'Physical Facilities' WHERE id = ?";
+            
             $stmt = $connection->prepare($updateQuery);
             $stmt->bind_param("i", $reservationId);
             $stmt->execute();
@@ -127,7 +131,159 @@ if ($firstEmptyColumn !== null) {
 }
 
 
+
+    // Array to hold the column names for act columns
+    $actColumns = array(
+        'act1' => 'Act1',
+        'act2' => 'Act2',
+        'act3' => 'Act3',
+        'act4' => 'Act4',
+        'act5' => 'Act5',
+        'act6' => 'Act6'
+    );
+
+    // Find the first empty column for act columns
+    $firstEmptyActColumn = null;
+    foreach ($actColumns as $columnName => $placeholder) {
+        $checkEmptyQuery = "SELECT COUNT(*) as count FROM reservations WHERE id = ? AND ($columnName = '' OR $columnName IS NULL)";
+        $stmtAct = $connection->prepare($checkEmptyQuery);
+        $stmtAct->bind_param("i", $reservationId);
+        $stmtAct->execute();
+        $result = $stmtAct->get_result();
+        $row = $result->fetch_assoc();
+        if ($row['count'] > 0) {
+            $firstEmptyActColumn = $columnName;
+            break;
+        }
+    }
+
+    if ($firstEmptyActColumn !== null) {
+        // Update the first empty column to 'Approved'
+        $updateQuery = "UPDATE reservations SET $firstEmptyActColumn = 'Approved' WHERE id = ?";
+        
+        $stmtAct = $connection->prepare($updateQuery);
+        $stmtAct->bind_param("i", $reservationId);
+        $stmtAct->execute();
+
+        // Check if the update was successful
+        if ($stmtAct->affected_rows > 0) {
+            // Now find the second empty column
+            $secondEmptyColumn = null;
+            foreach ($actColumns as $columnName => $placeholder) {
+                if ($columnName !== $firstEmptyActColumn) {
+                    $checkEmptyQuery = "SELECT COUNT(*) as count FROM reservations WHERE id = ? AND ($columnName = '' OR $columnName IS NULL)";
+                    $stmtAct = $connection->prepare($checkEmptyQuery);
+                    $stmtAct->bind_param("i", $reservationId);
+                    $stmtAct->execute();
+                    $result = $stmtAct->get_result();
+                    $row = $result->fetch_assoc();
+                    if ($row['count'] > 0) {
+                        $secondEmptyColumn = $columnName;
+                        break;
+                    }
+                }
+            }
+
+            if ($secondEmptyColumn !== null) {
+                // Update the second empty column to 'Received'
+                $updateQuery = "UPDATE reservations SET $secondEmptyColumn = 'Received' WHERE id = ?";
+               
+                $stmtAct = $connection->prepare($updateQuery);
+                $stmtAct->bind_param("i", $reservationId);
+                $stmtAct->execute();
+
+                // Check if the update was successful
+                if ($stmtAct->affected_rows > 0) {
+                    // Both updates were successful
+                } else {
+                    echo "Failed to update second empty column.";
+                }
+            } else {
+                echo "No second empty column found.";
+            }
+        } else {
+            echo "Failed to update first empty column.";
+        }
+    } else {
+        echo "No empty column found for act columns.";
+    }
+
+    $timeColumns = array(
+        'time1' => 'time1',
+        'time2' => 'time2',
+        'time3' => 'time3',
+        'time4' => 'time4',
+        'time5' => 'time5',
+        'time6' => 'time6'
+    );
     
+    // Find the first empty column for time columns
+    $firstEmptyTimeColumn = null;
+    foreach ($timeColumns as $columnName => $placeholder) {
+        $checkEmptyQuery = "SELECT COUNT(*) as count FROM reservations WHERE id = ? AND ($columnName = '' OR $columnName IS NULL)";
+        $stmtTime = $connection->prepare($checkEmptyQuery);
+        $stmtTime->bind_param("i", $reservationId);
+        $stmtTime->execute();
+        $result = $stmtTime->get_result();
+        $row = $result->fetch_assoc();
+        if ($row['count'] > 0) {
+            $firstEmptyTimeColumn = $columnName;
+            break;
+        }
+    }
+    
+    if ($firstEmptyTimeColumn !== null) {
+        // Update the first empty column to current date and time
+        $currentDateTime = date('Y-m-d H:i:s');
+        $updateQuery = "UPDATE reservations SET $firstEmptyTimeColumn = ? WHERE id = ?";
+        
+        $stmtTime = $connection->prepare($updateQuery);
+        $stmtTime->bind_param("si", $currentDateTime, $reservationId);
+        $stmtTime->execute();
+    
+        // Check if the update was successful
+        if ($stmtTime->affected_rows > 0) {
+            // Now find the second empty column
+            $secondEmptyTimeColumn = null;
+            foreach ($timeColumns as $columnName => $placeholder) {
+                if ($columnName !== $firstEmptyTimeColumn) {
+                    $checkEmptyQuery = "SELECT COUNT(*) as count FROM reservations WHERE id = ? AND ($columnName = '' OR $columnName IS NULL)";
+                    $stmtTime = $connection->prepare($checkEmptyQuery);
+                    $stmtTime->bind_param("i", $reservationId);
+                    $stmtTime->execute();
+                    $result = $stmtTime->get_result();
+                    $row = $result->fetch_assoc();
+                    if ($row['count'] > 0) {
+                        $secondEmptyTimeColumn = $columnName;
+                        break;
+                    }
+                }
+            }
+    
+            if ($secondEmptyTimeColumn !== null) {
+                // Update the second empty column to current date and time
+                $updateQuery = "UPDATE reservations SET $secondEmptyTimeColumn = ? WHERE id = ?";
+               
+                $stmtTime = $connection->prepare($updateQuery);
+                $stmtTime->bind_param("si", $currentDateTime, $reservationId);
+                $stmtTime->execute();
+    
+                // Check if the update was successful
+                if ($stmtTime->affected_rows > 0) {
+                    // Both updates were successful
+                } else {
+                    echo "Failed to update second empty time column.";
+                }
+            } else {
+                echo "No second empty time column found.";
+            }
+        } else {
+            echo "Failed to update first empty time column.";
+        }
+    } else {
+        echo "No empty time column found.";
+    }
+
  
 
 
@@ -185,7 +341,6 @@ if ($result) {
     $approveLink .= '?roomId=' . urlencode($roomId);
     $approveLink .= '&roomName=' . urlencode($roomName);
     $approveLink .= '&reservationId=' . urlencode($reservationId);
-    $approveLink .= '&category_id=' . urlencode($categoryId);
     $approveLink .= '&fullName=' . urlencode($fullName);
     $approveLink .= '&recipientName=' . urlencode($recipientName);
     $approveLink .= '&college=' . urlencode($college);
@@ -288,7 +443,7 @@ $stmt->execute();
 if ($stmt->affected_rows > 0) {
    
 }else{
-    echo"updated na";
+    echo"This Reservation is already approved";
 }
 
   
@@ -312,6 +467,10 @@ if ($stmt->affected_rows > 0) {
 
  $viewLink  .= '?reservationId=' . urlencode($reservationId);
  $viewLink .= '&recipientName=' . urlencode($recipientName);
+ $viewLink .= '&adviserEmail=' . urlencode($adviserEmail);
+ $viewLink .= '&userEmail=' . urlencode($userEmail);
+ $viewLink .= '&category_id=' . urlencode($categoryId);
+ $viewLink .= '&selectedItems=' . urlencode(json_encode($selectedItems));
 
 
  // Email content for confirmation

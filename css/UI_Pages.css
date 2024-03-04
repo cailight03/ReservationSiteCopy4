@@ -1,0 +1,323 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+ 
+
+}
+
+:root {
+    --primary-color: #2c3855;
+    --primary-color-dark: #435681;
+    --text-dark: #333333;
+    --text-light: #767268;
+    --extra-light: #f3f4f6;
+    --white: #ffffff;
+    --max-width: 1200px;
+  }
+
+body {
+    font-family: "Poppins", sans-serif;
+   
+  }
+
+
+.navbar{
+  margin: auto;
+  padding: 2rem 1rem;
+  max-width: 1320px;
+}
+
+.navbar-brand{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.navbar-brand img{
+ width: 50px;
+ padding-right: 10px;
+}
+
+.nav-item a{
+    font-weight: 500;
+}
+
+
+
+
+
+.container{
+  max-width: var(--max-width);
+margin: auto;
+padding: 4rem 1rem;
+}
+
+.header-container {
+    padding: 2rem 1rem 3rem 1rem;
+  }
+
+
+
+  
+  
+  .image-container {
+    position: relative;
+    min-height: 500px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 2rem;
+    transition: background-image 0.5s ease-out;
+}
+
+.reservation-container{
+  padding:1rem  ;
+}
+.reservation-border{
+  padding:1rem  ;
+}
+
+
+
+
+  .header-content {
+    max-width: 600px;
+    padding: 5rem 2rem;
+  }
+  
+  .header-content h1 {
+    margin-bottom: 1rem;
+    font-size: 56px;
+    line-height: 4rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+  
+  .header-content p {
+    color: var(--extra-light);
+  }
+
+.rooms-container{
+  padding-top: 1.5rem;
+}
+
+
+
+  /* galing sa client side na code*/
+
+
+  
+.grid-header {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+
+.card{
+ border-radius: 25px;
+  transition: 0.6s ease;
+}
+
+.card:hover{
+  transform: translateY(-20px);
+  }
+
+  .arrow-card, .others-text{
+   
+    transition: color 0.3s ease; /* Add transition property */
+}
+
+  
+  .arrow-card:hover,
+  .arrow-card:hover + .others-text {
+    color: black !important;
+  cursor: pointer;
+}
+
+.gallery-container{
+  padding-top: 1.5rem;
+}
+.gallery{
+  display: grid;
+  grid-gap:10px;
+grid-template-areas: 'first first . .' 'first first . .';
+}
+
+.gallery div img{
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+}
+.gallery_img_1{
+grid-area: first;
+}
+
+#roomCarousel, #vehicleCarousel{
+  border-radius: 10px;
+}
+.room-info-header{
+  margin-bottom: 1.5rem;
+}
+
+.room-info-container{
+  padding-top: 1rem;
+}
+
+#roomCarousel img {
+  border-radius: 10px; /* You can adjust the value to your preference */
+        width: 100%; /* Ensure the image takes up the full width of its container */
+        height: auto; /* Maintain the original aspect ratio */
+        margin: auto; /* Center the image horizontally */
+        display: block; /* Ensure proper centering */
+}
+
+
+
+/* MODAL STYLES */
+
+.reserve-now-btn {
+  background-color: #1a2337;
+  color: #ffd700;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 140px;
+  
+  
+}
+.custom-item-input{
+  display: none;
+}
+.quantity-input {
+  margin-top: 5px;
+  position: relative;
+  align-items: center;
+
+}
+
+.quantity-input button {
+  position: absolute;
+  right: 0;
+  top: 45%;
+  transform: translateY(50%);
+  background-color: #1a2337;
+  color: #ffd700;
+  border: none;
+  cursor: pointer;
+  border-radius: 100%;
+  padding: 0px;
+  font-size: 12px;
+  width: 16px;
+  height: 16px;
+  margin-left: 100px;
+}
+
+.quantity-input button:hover {
+  background-color: #e0c572;
+}
+.add-item-dropdown {
+  width: 100%;
+}
+
+.item-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.item-column {
+  flex: 1;
+}
+
+.selected-items-container {
+  margin-top: 10px;
+}
+
+.selected-items-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.selected-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.delete-button {
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 0; /* Removed padding to make it square */
+  width: 20px; /* Set width for a square button */
+  height: 20px; /* Set height for a square button */
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.delete-button:hover {
+  background-color: #cc0000;
+}
+
+
+.reserve-now-container {
+  display: flex;
+  align-items: center;
+  margin-top: -10px;
+}
+
+.reserve-now-btn {
+  background-color: #1a2337;
+  color: #ffd700;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 140px;
+  margin-left: auto; /* This will push the button to the right */
+}
+.item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+
+
+
+  
+
+
+  
+
+
+  
+  
+  
+
+ 
+  
+ 
+  
+  
+  
+  
+  
+
+
+  
+ 
+
+  
+  
+  
+  
