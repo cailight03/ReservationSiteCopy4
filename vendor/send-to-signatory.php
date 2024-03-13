@@ -307,7 +307,7 @@ if (move_uploaded_file($_FILES['fileUpload']['tmp_name'], $uploadFile)) {
  $confirmationMail->setFrom('noveelanleighc@gmail.com', "NU Laguna Reservation");
  $confirmationMail->addAddress($userEmail , 'Client'); // Replace with Recipient 2's email and name
 
- $viewLink  = 'http://localhost/ReservationSiteCopy4/client_pages/vehicle_reservation.php';
+ $viewLink  = 'http://localhost/ReservationSiteCopy4/client_pages/view_reservation.php';
 
  $viewLink  .= '?reservationId=' . urlencode($reservationId);
  $viewLink .= '&recipientName=' . urlencode($recipientName);

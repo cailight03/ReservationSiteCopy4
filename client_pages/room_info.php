@@ -186,9 +186,9 @@ if (isset($_GET['room_id'])) {
         <label for="email" class="form-label">E-mail <span class="required">*</span></label>
      <input  type="email" class="form-control" id="email" name="email" required >
       </div>
-<div class="mb-3">
+      <div class="mb-3">
     <label for="usertype" class="form-label">Select User Type: <span class="required">*</span></label>
-    <select class="form-select" id="usertype" name="userType" required>
+    <select class="form-select" id="usertype" name="userType" required onchange="toggleCollegeDiv(this.value)">
         <option value="" disabled selected>Select One</option>
         <option value="student">Student</option>
         <option value="employee">Employee</option>
@@ -199,7 +199,7 @@ if (isset($_GET['room_id'])) {
 <div class="mb-3" id="collegeDiv">
     <label for="college" class="form-label">College<span class="required">*</span></label>
     <select class="form-select" aria-label="Default select example" id="college" name="college" required>
-    <option value="" disabled selected>Select One</option>
+        <option value="" disabled selected>Select One</option>
         <?php
         // Fetch colleges from the database
         $query = "SELECT name FROM colleges";
@@ -215,6 +215,12 @@ if (isset($_GET['room_id'])) {
         ?>
     </select>
 </div>
+
+<div class="mb-3" id="departmentDiv" style="display:none;">
+    <label for="department" class="form-label">Department<span class="required">*</span></label>
+    <input type="text" class="form-control" id="department" name="college">
+</div>
+
 
 <div class="mb-3" id="orgDiv">
     <label for="org" class="form-label">Organization</label>
@@ -938,6 +944,25 @@ function setMaxNumberOfAttendees(categoryId) {
 // Call the function with the categoryId to set the maximum number
 setMaxNumberOfAttendees(categoryId);
 
+</script>
+
+<script>
+    function toggleCollegeDiv(userType) {
+        var collegeDiv = document.getElementById("collegeDiv");
+        var departmentDiv = document.getElementById("departmentDiv");
+
+        if (userType === "admin") {
+            collegeDiv.style.display = "none";
+            document.getElementById("college").removeAttribute("required");
+            departmentDiv.style.display = "block";
+            document.getElementById("department").setAttribute("required", "required");
+        } else {
+            collegeDiv.style.display = "block";
+            document.getElementById("college").setAttribute("required", "required");
+            departmentDiv.style.display = "none";
+            document.getElementById("department").removeAttribute("required");
+        }
+    }
 </script>
 
 </body>

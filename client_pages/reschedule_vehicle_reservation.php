@@ -51,7 +51,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }}
     
    // Insert query with time_slot instead of start_time and end_time
-   $UpdateQuery = "UPDATE vehicle_reservations SET date = ?, time = ?,status = 'pending' WHERE id = ?";
+   $UpdateQuery = "UPDATE vehicle_reservations SET date = ?, time = ?,status = 'pending',
+   Act1 = NULL, 
+   Act2 = NULL,
+   time1 = NULL, 
+   time2 = NULL,
+   Sig1 = NULL, 
+   Sig2 = NULL,
+
+   WHERE id = ?";
 
 // Prepare the query
 $stmt = $connection->prepare($UpdateQuery);

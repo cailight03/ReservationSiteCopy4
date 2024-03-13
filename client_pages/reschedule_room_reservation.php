@@ -128,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Insert failed
         echo "Error: " . $insertQuery . "<br>" . $connection->error;
         }
-        $connection->close();
+        
 
 
  
@@ -189,6 +189,7 @@ if ($userType == 'student') {
     $recipientEmail = 'default@email.com';
 }
 
+$connection->close();
 
 
     
@@ -381,13 +382,13 @@ $approveLink .= '&selectedItems=' . urlencode(json_encode($selectedItems));
  // Send the confirmation email to Recipient 2
  $confirmationMail->send();
 
- echo 'Rescheduled successfully.';
- echo $recipientEmail;
+ echo 'Rescheduled successfully. Reservation sent to ';
+ echo $recipientName;
  
 
 } catch (Exception $e) {
  echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
- echo $recipientEmail;
+ echo $recipientName;
 }
 } else {
 // Redirect to the form page if accessed directly without form submission

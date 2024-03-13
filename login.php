@@ -159,6 +159,6 @@
 
 <?php 
 }else{
-    header("Location: login.php");
+    header("Location: client_pages/index.php");
 }
  ?>
