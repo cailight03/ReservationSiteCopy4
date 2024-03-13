@@ -178,7 +178,7 @@ $connection->close();
  if (move_uploaded_file($_FILES['fileUpload']['tmp_name'], $uploadFile)) {
     $mail->addEmbeddedImage($uploadFile, 'Uploaded_Photo', 'Uploaded_Photo.jpg');
     $htmlContent .= "<p>ID Picture:</p>";
-    $htmlContent .= "<img src='cid:Uploaded_Photo' alt='Uploaded Photo' style='max-width: 100%; height: auto;'>";
+    $htmlContent .= "<img src='cid:Uploaded_Photo' alt='Uploaded Photo' style='max-width: 100%; height: 400px;'>";
 } else {
     $htmlContent .= "<p>Upload failed.</p>";
 }

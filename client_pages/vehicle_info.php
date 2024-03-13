@@ -153,7 +153,7 @@ if (isset($_GET['vehicle_id'])) {
     <div class="col-6 mb-3">
        
     <label for="fullName" class="form-label"> Full Name <span class="required">*</span></label>
-        <input  class="form-control" id="fullName" name="fullName" required>
+        <input  class="form-control" id="fullName" name="fullName" required placeholder="e.g. Jane Doe, John Doe">
     </div>
     <div class="col-6 mb-3">
         <label for="userEmail" class="form-label">E-mail <span class="required">*</span></label>
