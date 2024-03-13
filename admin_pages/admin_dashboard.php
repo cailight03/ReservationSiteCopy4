@@ -288,7 +288,7 @@ if ($totalCount != 0) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="color: white; text-shadow: 1px 1px 5px #000000;">
-                                                Total Room Reservations Nga
+                                                Total Room Reservations
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-white" style="color: white; text-shadow: 1px 1px 2px #000000;">
                                             <?php echo $total_reservations; ?>
