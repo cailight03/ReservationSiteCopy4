@@ -180,7 +180,10 @@ if (isset($_GET['reservationId'])) {
         <p><strong>Room ID:</strong> <?php echo $row['room_id']; ?></p>
         <p><strong>Room Name:</strong> <?php echo $row['room_name']; ?></p>
         <p><strong>Full Name:</strong> <?php echo $row['requestor']; ?></p>
-        <p><strong>Organization/College:</strong> <?php echo $row['department']; ?></p>
+        <p><strong>Organization:</strong> <?php echo $row['organization']; ?></p>
+        <p><strong>User Type:</strong> <?php echo $row['userType']; ?></p>
+        <p><strong>College/Department/Office:</strong> <?php echo $row['department']; ?></p>
+        <p><strong>Activity Type:</strong> <?php echo $row['activityType']; ?></p>
         <p><strong>Activity Name:</strong> <?php echo $row['activity_name']; ?></p>
         <p><strong>No. of Attendees:</strong> <?php echo $row['num_of_attendees']; ?></p>
         <p><strong>Date:</strong> <?php echo $row['date']; ?></p>
