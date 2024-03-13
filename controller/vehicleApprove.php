@@ -16,7 +16,7 @@ $stmt->execute();
 if ($stmt->affected_rows > 0) {
     echo "Status updated to Approved successfully.";
 }else{
-    echo"This reservation has already been updated";
+    echo"updated na";
 }
 ?>
 
