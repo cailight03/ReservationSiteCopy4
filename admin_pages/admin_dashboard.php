@@ -499,25 +499,103 @@ if ($totalCount != 0) {
         </div>
     </div>
     <script>
-                // Use JavaScript to render the bar graph for most booked rooms
-                var roomData = <?php echo $room_json; ?>;
-                var ctx1 = document.getElementById('bookedroomsGraph').getContext('2d');
-                var myBarChart = new Chart(ctx1, {
-                    type: 'bar',
-                    data: {
-                        labels: roomData.map(item => item.room_name),
-                        datasets: [{
-                            data: roomData.map(item => item.count),
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.8)',
-                                'rgba(54, 162, 235, 0.8)',
-                                'rgba(255, 206, 86, 0.8)',
-                                'rgba(75, 192, 192, 0.8)',
-                                'rgba(153, 102, 255, 0.8)',
-                            ],
-                        }]
-                    },
-                });
+
+
+// Use JavaScript to render the bar graph for most booked rooms
+var roomData = <?php echo $room_json; ?>;
+var ctx1 = document.getElementById('bookedroomsGraph').getContext('2d');
+var myBarChart;
+
+function updateChart() {
+    // Get the current date
+    var currentDate = new Date();
+
+    // Calculate the date 90 days ago
+    var date90DaysAgo = new Date();
+    date90DaysAgo.setDate(date90DaysAgo.getDate() - 90);
+
+    // Filter the data for the last 90 days
+    var last90DaysData = roomData.filter(item => new Date(item.date) >= date90DaysAgo && new Date(item.date) <= currentDate);
+
+    // Extract room names and counts
+    var roomNames = last90DaysData.map(item => item.room_name);
+    var counts = last90DaysData.map(item => item.count);
+
+    // Update the chart with the last 90 days of data
+    myBarChart.data.labels = roomNames;
+    myBarChart.data.datasets[0].data = counts;
+    myBarChart.update();
+}
+
+// Function to initialize the chart
+function initializeChart() {
+    myBarChart = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: [],
+            datasets: [{
+                data: [],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                ],
+            }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Room Name'
+                    }
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Count'
+                    }
+                }]
+            }
+        }
+    });
+    updateChart(); // Update the chart with initial data
+}
+
+// Initialize the chart
+initializeChart();
+
+// Function to reset the chart
+function resetChart() {
+    // Reset to the original dataset
+    myBarChart.data.labels = roomData.map(item => item.room_name);
+    myBarChart.data.datasets[0].data = roomData.map(item => item.count);
+    myBarChart.update();
+}
+
+// Function to check if 90 days have passed and reset the chart
+function checkIf90DaysPassed() {
+    // Get the date when the chart was initially loaded
+    var initialLoadDate = new Date(/* Enter the date when the chart was initially loaded */);
+
+    // Get the current date
+    var currentDate = new Date();
+
+    // Calculate the date 90 days after the initial load
+    var date90DaysAfterLoad = new Date(initialLoadDate);
+    date90DaysAfterLoad.setDate(date90DaysAfterLoad.getDate() + 90);
+
+    // Check if 90 days have passed since the initial load
+    if (currentDate >= date90DaysAfterLoad) {
+        resetChart(); // Reset the chart
+    }
+}
+
+// Call checkIf90DaysPassed function periodically (e.g., every day)
+setInterval(checkIf90DaysPassed, 24 * 60 * 60 * 1000); // Check every 24 hours (adjust as needed)
+
 
                 // Convert JSON data to JavaScript object
                 var reservationsPerDayData = <?php echo $reservations_per_day_json; ?>;
