@@ -26,32 +26,39 @@
                 Interface
             </div>
 
-
         <!-- Nav Item - Room Reservation -->
-        <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="roomReservationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-fw fa-calendar nav_icon"></i>
-        <span class="sidebar-text">Room Reservation</span>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="roomReservationDropdown">
-        <a class="dropdown-item" href="approved_roomReservations.php">Approved Reservations</a>
-        <a class="dropdown-item" href="pending_roomReservations.php">Pending Reservations</a>
-        <a class="dropdown-item" href="cancelled_roomReservations.php">Cancelled Reservations</a>
-    </div>
-</li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#roomReservationDropdown" aria-expanded="true" aria-controls="roomReservationDropdown">
+            <i class="fas fa-fw fa-calendar nav_icon"></i>
+            <span class="sidebar-text">Room Reservation</span>
+            </a>
+        <div id="roomReservationDropdown" class="dropdown-menu collapse" aria-labelledby="roomReservationDropdown" data-parent="#accordionSidebar">
+            <a class="dropdown-item" href="approved_roomReservations.php">Approved Reservations</a>
+            <hr class="dropdown-divider">
+            <a class="dropdown-item" href="past_reservations.php">Past Reservations</a>
+            <hr class="dropdown-divider">
+            <a class="dropdown-item" href="pending_roomReservations.php">Pending Reservations</a>
+            <hr class="dropdown-divider">
+            <a class="dropdown-item" href="cancelled_roomReservations.php">Cancelled Reservations</a>
+        </div>
+    </li>
 
-        <!-- Nav Item - Vehicle Reservation -->
-        <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="vehicleReservationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-fw fa-calendar nav_icon"></i>
-        <span class="sidebar-text">Vehicle Reservation</span>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="vehicleReservationDropdown">
-        <a class="dropdown-item" href="approved_vehicleReservations.php">Approved Reservations</a>
-        <a class="dropdown-item" href="pending_vehicleReservations.php">Pending Reservations</a>
-        <a class="dropdown-item" href="cancelled_vehicleReservations.php">Cancelled Reservations</a>
-    </div>
-</li>
+         <!-- Nav Item - Vehicle Reservation -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#vehicleReservationDropdown" aria-expanded="true" aria-controls="vehicleReservationDropdown">
+            <i class="fas fa-fw fa-calendar nav_icon"></i>
+            <span class="sidebar-text">Vehicle Reservation</span>
+        </a>
+        <div id="vehicleReservationDropdown" class="dropdown-menu collapse" aria-labelledby="vehicleReservationDropdown" data-parent="#accordionSidebar">
+            <a class="dropdown-item" href="approved_vehicleReservations.php">Approved Reservations</a>
+            <hr class="dropdown-divider">
+            <a class="dropdown-item" href="past_vehicle_reservations.php">Past Reservations</a>
+            <hr class="dropdown-divider">
+            <a class="dropdown-item" href="pending_vehicleReservations.php">Pending Reservations</a>
+            <hr class="dropdown-divider">
+            <a class="dropdown-item" href="cancelled_vehicleReservations.php">Cancelled Reservations</a>
+        </div>
+    </li>
         
         <!-- Nav Item - Manage Rooms -->
         <li class="nav-item">
@@ -78,18 +85,21 @@
         </li>
 
         <!-- Nav Item - Audit Trail -->
-        <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="auditTrailDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-fw fa-clipboard-list nav_icon"></i>
-        <span class="sidebar-text">Audit Trail</span>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="auditTrailDropdown">
-        <a class="dropdown-item" href="category_management_logs.php">Venues Audit Trail</a>
-        <a class="dropdown-item" href="room_management_logs.php">Rooms Audit Trail</a>
-        <a class="dropdown-item" href="vehicle_management_logs.php">Vehicles Audit Trail</a>
-    </div>
-</li>
-
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#auditTrailDropdown" aria-expanded="true" aria-controls="auditTrailDropdown">
+            <i class="fas fa-fw fa-clipboard-list nav_icon"></i>
+            <span class="sidebar-text">Audit Trail</span>
+        </a>
+        <div id="auditTrailDropdown" class="dropdown-menu collapse" aria-labelledby="auditTrailDropdown" data-parent="#accordionSidebar">
+            <a class="dropdown-item" href="category_management_logs.php">Venues Audit Trail</a>
+            <hr class="dropdown-divider">
+            <a class="dropdown-item" href="room_management_logs.php">Rooms Audit Trail</a>
+            <hr class="dropdown-divider">
+            <a class="dropdown-item" href="vehicle_management_logs.php">Vehicles Audit Trail</a>
+            <hr class="dropdown-divider">
+            <a class="dropdown-item" href="email_configuration_logs.php">Signatories Audit Trail</a>
+        </div>
+    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

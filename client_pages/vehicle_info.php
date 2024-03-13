@@ -162,13 +162,8 @@ if (isset($_GET['vehicle_id'])) {
       
         <div class="mb-3">
             <label for="office" class="form-label">Office <span class="required">*</span></label>
-            <select class="form-select" aria-label="Default select example" id="office" name="office" required>
-                <option disabled selected >Select One</option>
-                <option value="SCS">SCS</option>
-                <option value="SAS">SAS</option>
-                <option value="SEA">SEA</option>
-                <option value="SABM">SABM</option>
-            </select>
+           
+            <input type="text" class="form-control" name="office" id="office" placeholder="e.g. SCS,SABM,SEA,SAS">
         </div>
         
     

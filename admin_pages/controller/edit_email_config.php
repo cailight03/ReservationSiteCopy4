@@ -40,13 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $action = "update";
         $oldValue = "Name: {$college['name']}, Email: {$college['email']}";
         $newValue = "Name: $name, Email: $email";
-        $timestamp = date('Y-m-d H:i:s');
+        $timestamp = date("Y-m-d H:i:s");
 
         $logSql = "INSERT INTO signatories_audit (signatory_id, name, email, action, old_value, new_value, timestamp, user_id)
                    VALUES ($college_id, '$name', '$email', '$action', '$oldValue', '$newValue', '$timestamp', $userId)";
 
         if (mysqli_query($connection, $logSql)) {
-            header("Location: email_configuration.php");
+            header("Location: ../email_configuration.php");
             exit();
         } else {
             echo "Error logging audit trail: " . mysqli_error($connection);

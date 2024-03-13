@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // You can handle the response or redirect as needed
         // For simplicity, just redirect back to the main page
-        header('Location: index.php');
+        header('Location: ../manage_rooms.php');
         exit();
     } else {
         // Handle the case where category data is not found

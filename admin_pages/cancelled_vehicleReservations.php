@@ -24,7 +24,7 @@ if (!isset($_SESSION['user_id'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>NULR Admin | Approved Vehicle Reservations</title>
+    <title>NULR Admin | Cancelled Vehicle Reservations</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -73,7 +73,7 @@ if (!isset($_SESSION['user_id'])) {
                 <h2 class="grid-header" id="header">Cancelled Vehicle Reservations</h2>
 
 <!-- Table to display reservations -->
-<table id="vehicleresTable" class="table table-hover table-bordered">
+<table id="vehicleresTable" class="table table-hover table-bordered table-responsive">
     <thead>
         <tr>
             <th>Room ID</th>

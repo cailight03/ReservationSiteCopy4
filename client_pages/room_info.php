@@ -180,7 +180,7 @@ if (isset($_GET['room_id'])) {
     <div class="col-6 mb-3">
        
     <label for="fullName" class="form-label"> Full Name <span class="required">*</span></label>
-        <input  class="form-control" id="fullName" name="fullName" required>
+        <input  class="form-control" id="fullName" name="fullName" required placeholder="e.g. Jane Doe, John Doe">
     </div>
     <div class="col-6 mb-3">
         <label for="email" class="form-label">E-mail <span class="required">*</span></label>
@@ -191,8 +191,8 @@ if (isset($_GET['room_id'])) {
     <select class="form-select" id="usertype" name="userType" required onchange="toggleCollegeDiv(this.value)">
         <option value="" disabled selected>Select One</option>
         <option value="student">Student</option>
-        <option value="employee">Employee</option>
-        <option value="admin">Admin</option>
+        <option value="employee">Employee(Acad)</option>
+        <option value="admin">Employee(Admin)</option>
     </select>
 </div>
 
@@ -218,7 +218,7 @@ if (isset($_GET['room_id'])) {
 
 <div class="mb-3" id="departmentDiv" style="display:none;">
     <label for="department" class="form-label">Department<span class="required">*</span></label>
-    <input type="text" class="form-control" id="department" name="college">
+    <input type="text" class="form-control" id="department" name="department">
 </div>
 
 
@@ -254,9 +254,11 @@ if (isset($_GET['room_id'])) {
     <label for="activityType" class="form-label">Activity Type<span class="required">*</span></label>
     <select class="form-select" aria-label="Default select example" id="activityType" name="activityType" required>
         <option value="" disabled selected>Select One</option>
-        <option value="Course Activity">Course Activity</option>
-        <option value="Org Activity">Org Activity</option>
-        <option value="Event">Event</option>
+        <option value="Academic Activity">Academic Activity(Students)</option>
+        <option value="Non-Academic Activity">Non-Academic Activity(Students)</option>
+        <option value="Others Academic">Others (Academic)</option>
+        <option value="Others Admin">Others (Admin)</option>
+       
     </select>
 </div>
     <div class="mb-3">

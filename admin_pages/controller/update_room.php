@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             // Redirect to the room listing page
-            header('Location: display_rooms.php');
+            header('Location: ../manage_rooms.php?update=success');
             exit();
         } else {
             // Error updating room details

@@ -71,25 +71,29 @@ if (isset($_GET['category'])) {
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="../css/UI_Pages.css">
 
-    <!-- <link rel="stylesheet" href="style.css"> -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" ></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!-- Popper.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <!-- Top Navbar Back Button Styles -->
+    
     <style>
   .backArrow {
     background-color: #708090;
@@ -200,19 +204,16 @@ if (isset($_GET['category'])) {
                     $carouselId = 'carouselExampleControls-' . $roomId;
 
                     echo '<div class="col">';
-
                     echo '<a href="room_info.php?room_id=' . $roomId . '" style="text-decoration: none; color: inherit;">';
                     echo '<div class="card shadow">';
                     echo '<div id="' . $carouselId . '" class="carousel slide">';
                     echo '<div class="carousel-inner">';
-                    // Display carousel items
+// Display carousel items
                     foreach ($images as $index => $image) {
-                        echo '<div class="carousel-item' . ($index === 0 ? ' active' : '') . '">';
-                        echo '<img src="' . $image . '" class="d-block w-100" alt="Room Image" >';
-                        echo '</div>';
-                    }
-
-
+                    echo '<div class="carousel-item' . ($index === 0 ? ' active' : '') . '">';
+                    echo '<img src="' . $image . '" class="d-block w-100" alt="Room Image" >';
+                    echo '</div>';
+                        }
                     echo '</div>';
                     echo '<button class="carousel-control-prev" type="button" data-bs-target="#' . $carouselId . '" data-bs-slide="prev">';
                     echo '<span class="carousel-control-prev-icon" aria-hidden="true"></span>';
@@ -230,18 +231,16 @@ if (isset($_GET['category'])) {
                     echo '<div class="dropdown" style="position: absolute; top: 10px; right: 10px; z-index: 1000;">';
                     echo '<i class="bi bi-three-dots-vertical text-light" id="dropdownMenuButton' . $roomId . '" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.5em;" onclick="toggleOptions(' . $roomId . ')"></i>';
                     echo '<ul class="dropdown-menu" id="optionsMenu' . $roomId . '">' ;
-                    echo '<li><a class="dropdown-item" href="#" onclick="openEditModal(' . $roomId . ', \'' . $roomName . '\', \'' . $roomDescription . '\', \'' . implode(',', $images) . '\')"><i class="bi bi-pencil"></i> <span class="edit-option">Edit</span></a></li>';
-                    echo '<div class="dropdown" style="position: absolute; top: 10px; right: 10px; z-index: 2000;">';
-                    echo '<li><a class="dropdown-item" href="#" onclick="deleteRoom(' . $roomId . ')"><i class="bi bi-trash"></i> <span class="delete-option">Delete</span></a></li>';
+                    echo '<li><a class="dropdown-item" href="#" onclick="openEditModal(' . $roomId . ', \'' . $roomName . '\', \'' . $roomDescription . '\', \'' . implode(',', $images) . '\')"><i class="bi bi-pencil"></i> Edit</a></li>';
+                    echo '<li><a class="dropdown-item" href="#" onclick="deleteRoom(' . $roomId . ')"><i class="bi bi-trash"></i> Delete</a></li>';
                     echo '</ul>';
                     echo '</div>';
                     echo '</div>';
                     echo '</a>';
                     echo '</div>';
-                }
-
-            }
-        } else {
+                     }
+                    }
+             } else {
             echo '<p>No rooms found.</p>';
         }
     } else {
@@ -303,7 +302,74 @@ echo '</div>';
         </div>
     </div>
 </div>
+</div>
+                        </section>
+<!-- EDIT MODAL -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Room Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+    <form action="controller/update_room.php" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="room_id" value="<?php echo $roomId; ?>">
 
+        <div class="mb-3">
+            <label for="roomName" class="form-label">Room Name</label>
+            <input type="text" class="form-control" id="roomName" name="room_name" value="<?php echo $roomName; ?>">
+        </div>
+
+        <div class="mb-3">
+            <label for="roomDescription" class="form-label">Room Description</label>
+            <textarea class="form-control" id="roomDescription" name="room_description"><?php echo $roomDescription; ?></textarea>
+        </div>
+
+        <div id="carouselCurrentImages" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <?php foreach ($images as $index => $image) {
+                        echo '<div class="carousel-item' . ($index === 0 ? ' active' : '') . '">';
+                        echo '<img src="' . $image . '" class="d-block w-100" alt="Room Image">';
+                        echo '</div>';
+                    }?>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselCurrentImages" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselCurrentImages" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="mb-3">
+        <label for="selectedImages" class="form-label">Select Images to Delete</label>
+        <div id="imageCheckboxes">
+          <!-- JavaScript will dynamically populate this section -->
+        </div>
+      </div>
+
+        <!-- Hidden input field to store selected image filenames -->
+        <input type="hidden" id="selectedImages" name="selected_images">
+
+
+        <div class="mb-3">
+        <label for="newImage" class="form-label">Upload New Image</label>
+          <input type="file" class="form-control" id="newImage" name="new_image[]" multiple>
+            <small class="text-muted">Supported formats: jpg, jpeg, png, gif</small>
+        </div>
+
+       
+        <!-- Additional Save Changes button if needed -->
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </form>
+      
+    </div>
+    </div>
+  </div>
+</div>
             </div>
             <!-- End of Main Content -->
 
@@ -450,10 +516,6 @@ function openEditModal(roomId, roomName, roomDescription, roomImages) {
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 

@@ -38,15 +38,27 @@ if (mysqli_num_rows($result) > 0) {
     <title>NULR Admin | Email Configuration</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-     <link rel="stylesheet" href="..\css\UI_Pages.css">
+    <link rel="stylesheet" href="../css/UI_Pages.css">
+
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
  
 
 </head>
@@ -108,10 +120,33 @@ if (mysqli_num_rows($result) > 0) {
                             </tbody>
                         </table>
 
-                        <!-- Add new college button -->
-                        <a href="controller/add_email_config.php" class="btn btn-success">Add New College</a>
+                        <<!-- Add new college button -->
+                <a href="#" class="btn btn-success" id="addCollegeButton">Add New College</a>
 
-                        </div>
+<!-- Add College Modal -->
+<div class="modal fade" id="addCollegeModal" tabindex="-1" aria-labelledby="addCollegeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCollegeModalLabel">Add New College</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="controller/add_email_config.php">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name:</label>
+                        <input type="text" name="name" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="text" name="email" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add College</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
                         <!-- End of Main Content -->
 
                         <!-- Footer -->
@@ -185,6 +220,23 @@ if (mysqli_num_rows($result) > 0) {
                                 searching: true // Enable search
                             });
                         });
-                        </script>           
+                        </script>
+
+         <script>
+            // Handle click event for the "Add New College" button
+            document.getElementById('addCollegeButton').addEventListener('click', function(event) {
+                // Prevent default action (following the href link)
+                event.preventDefault();
+                // Show the modal
+                var myModal = new bootstrap.Modal(document.getElementById('addCollegeModal'));
+                myModal.show();
+                $(document).ready(function() {
+        // Function to close the modal when the "x" button is clicked
+        $('.modal-header .btn-close').click(function() {
+            $('#addCollegeModal').modal('hide');
+        });
+    });
+                });
+        </script>
 </body>
 </html>

@@ -73,7 +73,7 @@ if (!isset($_SESSION['user_id'])) {
                 <h2 class="grid-header" id="header">Approved Vehicle Reservations</h2>
 
 <!-- Table to display reservations -->
-<table id="vehicleresTable" class="table table-hover table-bordered">
+<table id="vehicleresTable" class="table table-hover table-bordered table-responsive">
     <thead>
         <tr>
             <th>Room ID</th>

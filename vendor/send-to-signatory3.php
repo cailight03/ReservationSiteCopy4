@@ -70,40 +70,27 @@ if ($stmt->execute()) {
 
 // Assign recipient email based on conditions
 if ($categoryId == 2) {
-    if (($userType == 'student' || $userType == 'employee') && $activityType == 'Course Activity') {
-        // Fetch email from signatories where name = 'NU Laguna Reservation'
+    if (($userType == 'student' || $userType == 'employee') && ($activityType == 'Academic Activity' || $activityType == 'Others Academic' )) {
         $query = "SELECT name, email FROM signatories WHERE name = 'NU Laguna Reservation'";
-    } elseif (($userType == 'student' || $userType == 'employee') && ($activityType == 'Org Activity' || $activityType == 'Event')) {
-        // Fetch email from signatories where name = 'SDAO'
+    } elseif (($userType == 'student') && ($activityType == 'Non-Academic Activity')) {
         $query = "SELECT name, email FROM signatories WHERE name = 'SDAO'";
-    } elseif ($userType == 'admin' && $activityType == 'Course Activity') {
+    } elseif ($userType == 'admin') {
         // Fetch email from signatories where name = 'Sir Rich'
         $query = "SELECT name, email FROM signatories WHERE name = 'SAD'";
-    } elseif ($userType == 'admin' && ($activityType == 'Org Activity' || $activityType == 'Event')) {
-        // Fetch email from signatories where name = 'NU Laguna Reservation'
-        $query = "SELECT name, email FROM signatories WHERE name = 'NU Laguna Reservation'";
     } else {
-        // Handle other cases or provide a default recipient email
-        $recipientEmail = 'default@email.com';
-        echo "bobo";
+        echo "Please select valid Activity Type for you user type";
     }
 } else {
-    if (($userType == 'student' || $userType == 'employee') && $activityType == 'Course Activity') {
-        // Fetch email from signatories where name = 'NU Laguna Reservation'
+    if (($userType == 'student' || $userType == 'employee') && ($activityType == 'Academic Activity' ||$activityType == 'Others Academic' )) {
         $query = "SELECT name, email FROM signatories WHERE name = 'Academic Director'";
-    } elseif (($userType == 'student' || $userType == 'employee') && ($activityType == 'Org Activity' || $activityType == 'Event')) {
-        // Fetch email from signatories where name = 'SDAO'
+    } elseif (($userType == 'student') && ($activityType == 'Non-Academic Activity')) {
         $query = "SELECT name, email FROM signatories WHERE name = 'NU Laguna Reservation'";
-    } elseif ($userType == 'admin' && $activityType == 'Course Activity') {
-        // Fetch email from signatories where name = 'Sir Rich'
+    } elseif ($userType == 'admin' && $activityType == 'Academic Activity') {
         $query = "SELECT name, email FROM signatories WHERE name = 'Physical Facilities'";
-    } elseif ($userType == 'admin' && ($activityType == 'Org Activity' || $activityType == 'Event')) {
-        // Fetch email from signatories where name = 'NU Laguna Reservation'
+    } elseif ($userType == 'admin' && ($activityType == 'Non-Academic Activity' || $activityType == 'Event')) {
         $query = "SELECT name, email FROM signatories WHERE name = 'SAD'";
     } else {
-        // Handle other cases or provide a default recipient email
-        $recipientEmail = 'default@email.com';
-        echo "bobo";
+        echo "Please select valid Activity Type for you user type";
 }}
 
 if (isset($query)) {
@@ -113,9 +100,7 @@ if (isset($query)) {
         $recipientEmail = $row['email'];
         $recipientName = $row['name'];
     } else {
-        // Handle query error
-        $recipientEmail = 'default@email.com'; // Provide a default recipient email
-    }
+        echo "Please select valid Activity Type for you user type";    }
 }
 
 
@@ -280,8 +265,8 @@ $approveLink .= '&selectedItems=' . urlencode(json_encode($selectedItems));
 
  $mail->send();
 
- echo 'Approved.';
- echo $recipientEmail;
+ echo 'Approved. Sent to: ';
+ echo $recipientName;
  
 
 } catch (Exception $e) {

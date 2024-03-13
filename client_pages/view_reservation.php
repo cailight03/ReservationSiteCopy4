@@ -221,7 +221,7 @@ if (isset($_GET['reservationId'])) {
 
         <?php
 
-if ($row['userType'] == 'student' && $row['activityType'] == 'Course Activity') {
+if ($row['userType'] == 'student' && $row['activityType'] == 'Academic Activity') {
     switch ($row['room_name']) {
         case 'Comlab 1':
             echo "<div>
@@ -325,7 +325,7 @@ if ($row['userType'] == 'student' && $row['activityType'] == 'Course Activity') 
                   
             break;
     }
-}elseif($row['userType'] == 'student' && ($row['activityType'] == 'Org Activity' || $row['activityType'] == 'Event')) 
+}elseif($row['userType'] == 'student' && ($row['activityType'] == 'Non-Academic Activity' )) 
 {
     switch ($row['room_name']) {
         case 'Comlab 1':
@@ -441,7 +441,7 @@ if ($row['userType'] == 'student' && $row['activityType'] == 'Course Activity') 
                   
             break;
     }
-}elseif($row['userType'] == 'employee' && $row['activityType'] == 'Course Activity'){
+}elseif($row['userType'] == 'employee' && $row['activityType'] == 'Others Academic'){
     switch ($row['room_name']) {
         case 'Comlab 1':
             echo "<div>
@@ -545,123 +545,7 @@ if ($row['userType'] == 'student' && $row['activityType'] == 'Course Activity') 
                   
             break;
     }
-}elseif($row['userType'] == 'employee' && ($row['activityType'] == 'Org Activity' || $row['activityType'] == 'Event')) 
-{
-    switch ($row['room_name']) {
-        case 'Comlab 1':
-            echo "<div>
-                    <p><strong>Signatory 1: </strong>".$recipientName." ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: Comlab head 1 ". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>SDAO ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>NU Laguna Reservation ". $row['Act4'] ." ".$row['time4']."</p>
-                    <p><strong>Signatory 5: </strong>Academic Director ". $row['Act5'] ." ".$row['time5']."</p>
-                    <p><strong>Signatory 6: </strong>Physical Facilities ". $row['Act6'] ." ".$row['time6']."</p>
-                  </div>";
-            break;
-        case 'Comlab 2':
-            echo "<div>
-                    <p><strong>Signatory 1: </strong>".$recipientName." ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: Comlab head 2". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>SDAO ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>NU Laguna Reservation ". $row['Act4'] ." ".$row['time4']."</p>
-                    <p><strong>Signatory 5: </strong>Academic Director ". $row['Act5'] ." ".$row['time5']."</p>
-                    <p><strong>Signatory 6: </strong>Physical Facilities ". $row['Act6'] ." ".$row['time6']."</p>
-                  </div>";
-            break;
-        case 'Comlab 3':
-            echo "<div>
-                    <p><strong>Signatory 1: </strong>".$recipientName." ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: Comlab head 3". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>SDAO ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>NU Laguna Reservation ".$row['Act4'] ." ".$row['time4'] ."</p>
-                    <p><strong>Signatory 5: </strong>Academic Director ". $row['Act5'] ." ".$row['time5']."</p>
-                    <p><strong>Signatory 6: </strong>Physical Facilities ". $row['Act6'] ." ".$row['time6']."</p>
-                  </div>";
-            break;
-        case 'Comlab 4':
-            echo "<div>
-                    <p><strong>Signatory 1: </strong>".$recipientName." ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: Comlab head 4". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>SDAO ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>NU Laguna Reservation ".$row['Act4'] ." ".$row['time4'] ."</p>
-                    <p><strong>Signatory 5: </strong>Academic Director ". $row['Act5'] ." ".$row['time5']."</p>
-                    <p><strong>Signatory 6: </strong>Physical Facilities ". $row['Act6'] ." ".$row['time6']."</p>
-                  </div>";
-            break;
-        case 'Comlab 5':
-            echo "<div>
-                    <p><strong>Signatory 1: </strong>".$recipientName." ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: Comlab head 5". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>SDAO ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>NU Laguna Reservation ".$row['Act4'] ." ".$row['time4'] ."</p>
-                    <p><strong>Signatory 5: </strong>Academic Director ". $row['Act5'] ." ".$row['time5']."</p>
-                    <p><strong>Signatory 6: </strong>Physical Facilities ". $row['Act6'] ." ".$row['time6']."</p>
-                    </div>";
-            break;
-        case 'Chemlab 1':
-            echo "<div>
-                    <p><strong>Signatory 1: </strong>".$recipientName." ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: Chemlab head 1". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>SDAO ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>NU Laguna Reservation ".$row['Act4'] ." ".$row['time4'] ."</p>
-                    <p><strong>Signatory 5: </strong>Academic Director ". $row['Act5'] ." ".$row['time5']."</p>
-                    <p><strong>Signatory 6: </strong>Physical Facilities ". $row['Act6'] ." ".$row['time6']."</p>
-                    </div>";
-            break;
-            case 'Chemlab 2':
-                echo "<div>
-                        <p><strong>Signatory 1: </strong>".$recipientName." ". $row['Act1'] ." ".$row['time1']."</p>
-                        <p><strong>Signatory 2</strong>: Chemlab head 2". $row['Act2'] ." ".$row['time2']."</p>
-                        <p><strong>Signatory 3: </strong>SDAO ". $row['Act3'] ." ".$row['time3']."</p>
-                        <p><strong>Signatory 4: </strong>NU Laguna Reservation ".$row['Act4'] ." ".$row['time4'] ."</p>
-                        <p><strong>Signatory 5: </strong>Academic Director ". $row['Act5'] ." ".$row['time5']."</p>
-                        <p><strong>Signatory 6: </strong>Physical Facilities ". $row['Act6'] ." ".$row['time6']."</p>
-                        </div>";
-            break;
-        case 'Crimlab 1':
-        echo "<div>
-                <p><strong>Signatory 1: </strong>".$recipientName." ". $row['Act1'] ." ".$row['time1']."</p>
-                <p><strong>Signatory 2</strong>: Crimlab head 1". $row['Act2'] ." ".$row['time2']."</p>
-                <p><strong>Signatory 3: </strong>SDAO ". $row['Act3'] ." ".$row['time3']."</p>
-                <p><strong>Signatory 4: </strong>NU Laguna Reservation ".$row['Act4'] ." ".$row['time4'] ."</p>
-                <p><strong>Signatory 5: </strong>Academic Director ". $row['Act5'] ." ".$row['time5']."</p>
-                <p><strong>Signatory 6: </strong>Physical Facilities ". $row['Act6'] ." ".$row['time6']."</p>
-                </div>";
-            break;
-        case 'Crimlab 2':
-            echo "<div>
-                    <p><strong>Signatory 1: </strong>".$recipientName." ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: Crimlab head 2". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>SDAO ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>NU Laguna Reservation ".$row['Act4'] ." ".$row['time4'] ."</p>
-                    <p><strong>Signatory 5: </strong>Academic Director ". $row['Act5'] ." ".$row['time5']."</p>
-                    <p><strong>Signatory 6: </strong>Physical Facilities ". $row['Act6'] ." ".$row['time6']."</p>
-                    </div>";
-            break;
-        case 'TSMJ Lab':
-            echo "<div>
-                    <p><strong>Signatory 1: </strong>".$recipientName." ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: TSMJ Lab head". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>SDAO ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>NU Laguna Reservation ".$row['Act4'] ." ".$row['time4'] ."</p>
-                    <p><strong>Signatory 5: </strong>Academic Director ". $row['Act5'] ." ".$row['time5']."</p>
-                    <p><strong>Signatory 6: </strong>Physical Facilities ". $row['Act6'] ." ".$row['time6']."</p>
-                    </div>";
-            break;
-         
-        default:
-            echo "<div>
-            <p><strong>Signatory 1: </strong>".$recipientName." ". $row['Act1'] ." ".$row['time1']."</p>
-            <p><strong>Signatory 2</strong>:SDAO". $row['Act2'] ." ".$row['time2']."</p>
-            <p><strong>Signatory 3: </strong>NU Laguna Reservation ". $row['Act3'] ." ".$row['time3']."</p>
-            <p><strong>Signatory 4: </strong>Academic Director ".$row['Act4'] ." ".$row['time4'] ."</p>
-            <p><strong>Signatory 5: </strong> Physical Facilities ". $row['Act5'] ." ".$row['time5']."</p>
-            </div>";
-
-                  
-            break;
-    }
-}elseif($row['userType'] == 'admin' && $row['activityType'] == 'Course Activity'){
+}elseif($row['userType'] == 'admin' && $row['activityType'] == 'Others Admin'){
     switch ($row['room_name']) {
         case 'Comlab 1':
             echo "<div>
@@ -782,127 +666,6 @@ if ($row['userType'] == 'student' && $row['activityType'] == 'Course Activity') 
             break;
     }
 
-}elseif($row['userType'] == 'admin' && ($row['activityType'] == 'Org Activity' || $row['activityType'] == 'Event')){
-    switch ($row['room_name']) {
-        case 'Comlab 1':
-            echo "<div>
-                    <p><strong>Signatory 1: </strong>SDAO ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: Comlab head 1 ". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>NU Laguna Reservation ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>SAD ".$row['Act4'] ." ".$row['time4'] ."</p>
-                    <p><strong>Signatory 5: </strong>Physical Facilities ".$row['Act5'] ." ".$row['time5'] ."</p>
-                    
-                  </div>";
-            break;
-        case 'Comlab 2':
-            echo "<div>
-            <p><strong>Signatory 1: </strong>SDAO ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: Comlab head 2". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>NU Laguna Reservation ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>SAD ". $row['Act4'] ." ".$row['time4']."</p>
-                    <p><strong>Signatory 5: </strong>Physical Facilities ".$row['Act5'] ." ".$row['time5'] ."</p>
-                    
-                  </div>";
-            break;
-        case 'Comlab 3':
-            echo "<div>
-            <p><strong>Signatory 1: </strong>SDAO ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: Comlab head 3". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>NU Laguna Reservation ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>SAD ".$row['Act4'] ." ".$row['time4'] ."</p>
-                    <p><strong>Signatory 5: </strong>Physical Facilities ".$row['Act5'] ." ".$row['time5'] ."</p>
-                    
-                  </div>";
-            break;
-        case 'Comlab 4':
-            echo "<div>
-            <p><strong>Signatory 1: </strong>SDAO ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: Comlab head 4". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>NU Laguna Reservation ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>SAD ".$row['Act4'] ." ".$row['time4'] ."</p>
-                    
-                    <p><strong>Signatory 5: </strong>Physical Facilities ".$row['Act5'] ." ".$row['time5'] ."</p>
-                    
-                  </div>";
-            break;
-        case 'Comlab 5':
-            echo "<div>
-            <p><strong>Signatory 1: </strong>SDAO ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: Comlab head 5". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>NU Laguna Reservation ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>SAD ".$row['Act4'] ." ".$row['time4'] ."</p>
-                    
-                    <p><strong>Signatory 5: </strong>Physical Facilities ".$row['Act5'] ." ".$row['time5'] ."</p>
-                    
-                    </div>";
-            break;
-        case 'Chemlab 1':
-            echo "<div>
-            <p><strong>Signatory 1: </strong>SDAO ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: Chemlab head 1". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>NU Laguna Reservation ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>SAD ".$row['Act4'] ." ".$row['time4'] ."</p>
-                    
-                    <p><strong>Signatory 5: </strong>Physical Facilities ".$row['Act5'] ." ".$row['time5'] ."</p>
-                    
-                    </div>";
-            break;
-            case 'Chemlab 2':
-                echo "<div>
-                <p><strong>Signatory 1: </strong>SDAO ". $row['Act1'] ." ".$row['time1']."</p>
-                        <p><strong>Signatory 2</strong>: Chemlab head 2". $row['Act2'] ." ".$row['time2']."</p>
-                        <p><strong>Signatory 3: </strong>NU Laguna Reservation ". $row['Act3'] ." ".$row['time3']."</p>
-                        <p><strong>Signatory 4: </strong>SAD ".$row['Act4'] ." ".$row['time4'] ."</p>
-                       
-                    <p><strong>Signatory 5: </strong>Physical Facilities ".$row['Act5'] ." ".$row['time5'] ."</p>
-                        
-                        </div>";
-            break;
-        case 'Crimlab 1':
-        echo "<div>
-        <p><strong>Signatory 1: </strong>SDAO ". $row['Act1'] ." ".$row['time1']."</p>
-                <p><strong>Signatory 2</strong>: Crimlab head 1". $row['Act2'] ." ".$row['time2']."</p>
-                <p><strong>Signatory 3: </strong>NU Laguna Reservation ". $row['Act3'] ." ".$row['time3']."</p>
-                <p><strong>Signatory 4: </strong>SAD ".$row['Act4'] ." ".$row['time4'] ."</p>
-               
-                    <p><strong>Signatory 5: </strong>Physical Facilities ".$row['Act5'] ." ".$row['time5'] ."</p>
-                
-                </div>";
-            break;
-        case 'Crimlab 2':
-            echo "<div>
-            <p><strong>Signatory 1: </strong>SDAO ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: Crimlab head 2". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>NU Laguna Reservation ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>SAD ".$row['Act4'] ." ".$row['time4'] ."</p>
-                    
-                    <p><strong>Signatory 5: </strong>Physical Facilities ".$row['Act5'] ." ".$row['time5'] ."</p>
-                    
-                    </div>";
-            break;
-        case 'TSMJ Lab':
-            echo "<div>
-            <p><strong>Signatory 1: </strong>SDAO ". $row['Act1'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 2</strong>: TSMJ Lab head". $row['Act2'] ." ".$row['time1']."</p>
-                    <p><strong>Signatory 3: </strong>NU Laguna Reservation ". $row['Act3'] ." ".$row['time3']."</p>
-                    <p><strong>Signatory 4: </strong>SAD ".$row['Act4'] ." ".$row['time4'] ."</p>
-                    
-                    <p><strong>Signatory 5: </strong>Physical Facilities ".$row['Act5'] ." ".$row['time5'] ."</p>
-                    
-                    </div>";
-            break;
-         
-        default:
-            echo "<div>
-            <p><strong>Signatory 1: </strong>SDAO ". $row['Act1'] ." ".$row['time1']."</p>
-            <p><strong>Signatory 2: </strong>NU Laguna Reservation ". $row['Act2'] ." ".$row['time2']."</p>
-                    <p><strong>Signatory 3: </strong>SAD ".$row['Act3'] ." ".$row['time3'] ."</p>
-                    <p><strong>Signatory 4: </strong>Physical Facilities ".$row['Act4'] ." ".$row['time4'] ."</p>
-                  </div>";
-
-                  
-            break;
-    }
 }
 ?>
 

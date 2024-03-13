@@ -76,7 +76,7 @@ if (!isset($_SESSION['user_id'])) {
                         <h2 class="grid-header" id="header">Category Management Logs</h2>
 
                         <!-- Table to display reservations -->
-                        <table id="categoryManagementLogs" class="table table-hover table-bordered">
+                        <table id="categoryManagementLogs" class="table table-hover table-bordered ">
                             <thead>
                                 <tr>
                                     <th>Audit ID</th>

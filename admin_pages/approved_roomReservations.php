@@ -76,7 +76,7 @@ if (!isset($_SESSION['user_id'])) {
                         <h2 class="grid-header" id="header">Approved Room Reservations</h2>
 
                         <!-- Table to display reservations -->
-                        <table id="approvedreservationsTable" class="table table-hover table-bordered">
+                        <table id="approvedreservationsTable" class="table table-hover table-bordered table-responsive">
                             <thead>
                                 <tr>
                                 <th>Reservation ID</th>
@@ -137,9 +137,13 @@ if (!isset($_SESSION['user_id'])) {
 
                                     echo "<td>{$row['remarks']}</td>";
                                     echo "<td>{$row['status']}</td>";
-                                     // echo "<td>";
-
-                                    // echo "</td>";
+                                   
+                                    for ($i = 1; $i <= 6; $i++) {
+                                        $signature = "Sig$i";
+                                        if (!empty($row[$signature])) {
+                                            echo "<td>{$row[$signature]}</td>";
+                                        }
+                                    }
                                     echo "</tr>";
                                     }
                                 ?>
@@ -322,6 +326,7 @@ if (!isset($_SESSION['user_id'])) {
          $('#approvedreservationsTable').DataTable({
             "paging": true, // Enable pagination
              "searching": true // Enable search functionality
+            
       });
    });
 </script>

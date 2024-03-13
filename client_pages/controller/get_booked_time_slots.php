@@ -7,7 +7,7 @@ if (isset($_GET['room_id']) && isset($_GET['date'])) {
     $selectedDate = $_GET['date'];
 
     // Query to retrieve approved or pending booked time slots for the given room and date
-    $bookedTimeSlotsQuery = "SELECT date, time_slot FROM reservations WHERE room_id = ? AND status IN ('Approved')";
+    $bookedTimeSlotsQuery = "SELECT date, time_slot FROM reservations WHERE room_id = ? AND status IN ('Pending','Approved')";
     $stmt = $connection->prepare($bookedTimeSlotsQuery);
     $stmt->bind_param("i", $roomId);
     $stmt->execute();

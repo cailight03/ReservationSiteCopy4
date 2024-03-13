@@ -31,7 +31,7 @@ if (isset($_GET['id'])) {
         $action = "delete";
         $oldValue = "Name: {$collegeData['name']}, Email: {$collegeData['email']}";
         $newValue = "";
-        $timestamp = date('Y-m-d H:i:s');
+        $timestamp = date("Y-m-d H:i:s");
 
         $logSql = "INSERT INTO signatories_audit (signatory_id, name, email, action, old_value, new_value, timestamp, user_id)
                    VALUES ($college_id, '{$collegeData['name']}', '{$collegeData['email']}', '$action', '$oldValue', '$newValue', '$timestamp', $userId)";

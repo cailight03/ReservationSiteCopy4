@@ -7,7 +7,7 @@ if (isset($_GET['vehicle_id']) && isset($_GET['date'])) {
     $selectedDate = $_GET['date'];
 
     // Query to retrieve approved or pending booked time slots for the given vehicle and date
-    $bookedTimeSlotsQuery = "SELECT date, time FROM vehicle_reservations WHERE vehicle_id = ? AND status IN ( 'Approved')";
+    $bookedTimeSlotsQuery = "SELECT date, time FROM vehicle_reservations WHERE vehicle_id = ? AND status IN ('Pending','Approved')";
     $stmt = $connection->prepare($bookedTimeSlotsQuery);
     $stmt->bind_param("i", $vehicleId);
     $stmt->execute();

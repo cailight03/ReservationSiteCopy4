@@ -31,7 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $activityType = $_POST['activityType'];
     $fullName = $_POST["fullName"];
     $userEmail = $_POST["email"];
-    $college = $_POST["college"];
+    $college = isset($_POST['college']) ? $_POST['college'] : '';
+    $department = $_POST["department"];
+    
+if (empty($college)) {
+    $college = $department;
+}
     $activityName = $_POST["activityName"];
     $numOfAttendees = $_POST["numOfAttendees"];
     $date = $_POST["reservation-date"];
@@ -49,6 +54,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Decode the selected items from JSON
     $selectedItems = json_decode($_POST['selectedItems'], true);
     $selectedItemsJSON = json_encode($selectedItems); // Encode the items back to JSON for storage
+
+  
+
+if (empty($roomId)) {
+    $roomId = $department;
+}
     
 
 
@@ -73,23 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $recipientEmail = 'default@email.com'; // Provide a default email or handle it according to your logic
         }
     } elseif ($userType == 'admin') {
-        // If user type is admin, check activity type
-        if ($activityType == 'Event' ||  $activityType == 'Org Activity') {
             // If activity type is event, use specific admin email
-            $query = "SELECT name, email FROM signatories WHERE name = 'SDAO'";
-            if (isset($query)) {
-                $result = mysqli_query($connection, $query);
-                if ($result) {
-                    $row = mysqli_fetch_assoc($result);
-                    $recipientEmail = $row['email'];
-                    $recipientName = $row['name'];
-                } else {
-                    // Handle query error
-                    $recipientEmail = 'default@email.com'; // Provide a default recipient email
-                }
-            }
-        } else {
-            // If activity type is not event, use general admin email
             $query = "SELECT name, email FROM signatories WHERE name = 'NU Laguna Reservation'";
             if (isset($query)) {
                 $result = mysqli_query($connection, $query);
@@ -102,10 +97,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $recipientEmail = 'default@email.com'; // Provide a default recipient email
                 }
             }
+        
+    } elseif ($userType == 'admin' && $categoryId == 2 ) {
+        if ($roomName == 'Comlab 1') {
+            $query = "SELECT name, email FROM signatories WHERE name = 'Comlab 1 Head'";
+        } elseif ($roomName == 'Comlab 2') {
+            $query = "SELECT name, email FROM signatories WHERE name = 'Comlab 2 Head'";
+        } elseif ($roomName == 'Comlab 3') {
+            $query = "SELECT name, email FROM signatories WHERE name = 'Comlab 3 Head'";
+        } elseif ($roomName == 'Comlab 4') {
+            $query = "SELECT name, email FROM signatories WHERE name = 'Comlab 4 Head'";
+        } elseif ($roomName == 'Comlab 5') {
+            $query = "SELECT name, email FROM signatories WHERE name = 'Comlab 5 Head'";
+        } elseif ($roomName == 'Chemlab 1') {
+            $query = "SELECT name, email FROM signatories WHERE name = 'Chemlab 1 Head'";
+        } elseif ($roomName == 'Chemlab 2') {
+            $query = "SELECT name, email FROM signatories WHERE name = 'Chemlab 2 Head'";
+        } elseif ($roomName == 'Crimlab 1') {
+            $query = "SELECT name, email FROM signatories WHERE name = 'Crimlab 1 Head'";
+        } elseif ($roomName == 'Crimlab 2') {
+            $query = "SELECT name, email FROM signatories WHERE name = 'Crimlab 2 Head'";
+        } elseif ($roomName == 'TSMJ Lab 1') {
+            $query = "SELECT name, email FROM signatories WHERE name = 'TSMJ Lab 1 Head'";
         }
-    } else {
-        // Handle other user types if needed
-        $recipientEmail = 'default@email.com';
+        
+        // Execute the query and fetch the result
+        if (isset($query)) {
+            $result = mysqli_query($connection, $query);
+            if ($result) {
+                $row = mysqli_fetch_assoc($result);
+                // Assign the fetched values to recipientName and recipientEmail variables
+                $recipientName = $row['name'];
+                $recipientEmail = $row['email'];
+            } else {
+                // Handle query error
+                $recipientName = 'default name'; // Provide a default recipient name
+                $recipientEmail = 'default@email.com'; // Provide a default recipient email
+            }
+        } 
+    }
+    else {
+       echo "Please select valid Activity Type for you user type";
     }
 
 
@@ -329,12 +361,13 @@ if (move_uploaded_file($_FILES['fileUpload']['tmp_name'], $uploadFile)) {
  // Send the confirmation email to Recipient 2
  $confirmationMail->send();
 
- echo 'Your request has been submitted. Please check your email for updates.';
- echo $recipientEmail;
+ echo 'Your request has been submitted. Please check your email for updates. Sent to: ';
+ echo $recipientName;
  
  
 } catch (Exception $e) {
  echo "Please input a valid email address. {$mail->ErrorInfo}";
+ echo $department;
  
 }
 } else {

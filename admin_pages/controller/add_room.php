@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $connection->prepare($insertQuery);
 
     if ($stmt) {
-        $roomImagePathForDB = "../../img/room_img/" . $roomName . "/";
+        $roomImagePathForDB = "../img/room_img/" . $roomName . "/";
         $stmt->bind_param("sssi", $roomName, $roomDescription, $roomImagePathForDB, $categoryId);
 
         if ($stmt->execute()) {

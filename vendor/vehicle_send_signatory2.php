@@ -228,7 +228,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  // Send the confirmation email to Recipient 2
  $confirmationMail->send();
 
- echo 'Your request has been submitted. Please check your email for updates.'.$recipientEmail;
+ echo 'Your request has been submitted. Please check your email for updates. Sent to: '.$recipientName;
  
 } catch (Exception $e) {
  echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

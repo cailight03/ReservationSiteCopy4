@@ -82,6 +82,95 @@ while ($row = mysqli_fetch_assoc($resultReservationsPerDay)) {
 // Convert PHP data to JSON for JavaScript
 $reservations_per_day_json = json_encode($reservations_per_day_data);
 
+// Query to count pending reservations
+$sql_pending_reservations = "SELECT COUNT(*) AS pending_reservations FROM reservations WHERE status = 'Pending'";
+$result_pending_reservations = $connection->query($sql_pending_reservations);
+
+if ($result_pending_reservations->num_rows > 0) {
+    // Output data of the pending reservations
+    while($row_pending_reservations = $result_pending_reservations->fetch_assoc()) {
+        $pending_reservations = $row_pending_reservations["pending_reservations"];
+    }
+} else {
+    $pending_reservations = 0;
+}
+
+// Query to count pending vehicle reservations
+$sql_pending_vehicle_reservations = "SELECT COUNT(*) AS pending_vehicle_reservations FROM vehicle_reservations WHERE status = 'Pending'";
+$result_pending_vehicle_reservations = $connection->query($sql_pending_vehicle_reservations);
+
+if ($result_pending_vehicle_reservations->num_rows > 0) {
+    // Output data of the pending vehicle reservations
+    while($row_pending_vehicle_reservations = $result_pending_vehicle_reservations->fetch_assoc()) {
+        $pending_vehicle_reservations = $row_pending_vehicle_reservations["pending_vehicle_reservations"];
+    }
+} else {
+    $pending_vehicle_reservations = 0;
+}
+
+
+$sql = "SELECT room_name, COUNT(*) AS reservation_count 
+        FROM reservations 
+        GROUP BY room_name 
+        ORDER BY reservation_count DESC 
+        LIMIT 1";
+
+$result = $connection->query($sql);
+
+if ($result->num_rows > 0) {
+    // Output data of the room with the most reservations
+    while($row = $result->fetch_assoc()) {
+        $most_reserved_room = $row["room_name"];
+    }
+} else {
+    $most_reserved_room = "No reservations found";
+}
+
+$sql = "SELECT vehicle_name, COUNT(*) AS reservation_count 
+        FROM vehicle_reservations 
+        GROUP BY vehicle_name 
+        ORDER BY reservation_count DESC 
+        LIMIT 1";
+
+$result = $connection->query($sql);
+
+if ($result->num_rows > 0) {
+    // Output data of the room with the most reservations
+    while($row = $result->fetch_assoc()) {
+        $most_reserved_vehicle = $row["vehicle_name"];
+    }
+} else {
+    $most_reserved_vehicle = "No reservations found";
+}
+
+
+// Query to count total reservations
+$sql_total_reservations = "SELECT COUNT(*) AS total_reservations FROM reservations";
+$result_total_reservations = $connection->query($sql_total_reservations);
+
+if ($result_total_reservations->num_rows > 0) {
+    // Output data of the total reservations
+    while($row_total_reservations = $result_total_reservations->fetch_assoc()) {
+        $total_reservations = $row_total_reservations["total_reservations"];
+    }
+} else {
+    $total_reservations = 0;
+}
+
+// Query to count total vehicle reservations
+$sql_total_vehicle_reservations = "SELECT COUNT(*) AS total_vehicle_reservations FROM vehicle_reservations";
+$result_total_vehicle_reservations = $connection->query($sql_total_vehicle_reservations);
+
+if ($result_total_vehicle_reservations->num_rows > 0) {
+    // Output data of the total vehicle reservations
+    while($row_total_vehicle_reservations = $result_total_vehicle_reservations->fetch_assoc()) {
+        $total_vehicle_reservations = $row_total_vehicle_reservations["total_vehicle_reservations"];
+    }
+} else {
+    $total_vehicle_reservations = 0;
+}
+
+
 
 
 
@@ -99,7 +188,17 @@ $rowTotal = mysqli_fetch_assoc($resultTotal);
 $totalCount = $rowTotal['total_count'];
 
 // Calculate cancellation rate
-$cancellationRate = ($canceledCount / $totalCount) * 100;
+if ($totalCount != 0) {
+    $cancellationRate = ($canceledCount / $totalCount) * 100;
+} else {
+    // Handle the case where $totalCount is zero
+    // For example, set $cancellationRate to 0 or display an error message.
+    $cancellationRate = 0;
+    // Or you can display an error message
+    // echo "Total count is zero, cannot calculate cancellation rate.";
+}
+
+
 ?>
 
 
@@ -120,15 +219,28 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
 
     <title>NULR Admin | Dashboard MK4</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+   <!-- Custom fonts for this template-->
+   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" >
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../css/UI_Pages.css">
+
+    <!-- Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
@@ -148,7 +260,7 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand-lg navbar-light bg-white topbar mb-4 static-top shadow container-fluid">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -156,182 +268,7 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
                     </button>
 
                     <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <!-- <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a> -->
-
-                            <!-- Dropdown - Messages -->
-                            <!-- <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li> -->
-
-                        <!-- Nav Item - Alerts -->
-                        <!-- <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i> -->
-                                <!-- Counter - Alerts -->
-                                <!-- <span class="badge badge-danger badge-counter">3+</span> -->
-                            <!-- </a> -->
-                            <!-- Dropdown - Alerts -->
-                            <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center -->
-                                <!-- </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li> -->
-
-                        <!-- Nav Item - Messages -->
-                        <!-- <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i> -->
-                                <!-- Counter - Messages -->
-                                <!-- <span class="badge badge-danger badge-counter">7</span>
-                            </a> -->
-                            <!-- Dropdown - Messages -->
-                            <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">I have the photos that you ordered last month, how
-                                            would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
-
-                        <div class="topbar-divider d-none d-sm-block"></div> -->
-
-                        <!-- Nav Item - User Information -->
-                        <!-- <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg"> -->
-                            <!-- </a> -->
-                            <!-- Dropdown - User Information -->
-                            <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li> -->
+                    <ul class="navbar-nav ml-auto w-100 justify-content-end container-fluid">
 
                     </ul>
 
@@ -345,16 +282,16 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
                     <div class="row">
 
                         <!-- Total Reservation Card -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2 bg-gradient-primary">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="color: white; text-shadow: 2px 2px 4px #000000;">
-                                                Total Reservations
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="color: white; text-shadow: 1px 1px 5px #000000;">
+                                                Total Room Reservations
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-white" style="color: white; text-shadow: 1px 1px 2px #000000;">
-                                                999
+                                            <?php echo $total_reservations; ?>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -366,16 +303,16 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
                         </div>
 
                         <!-- Most Reserved Card -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2 bg-gradient-success">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="color: white; text-shadow: 2px 2px 4px #000000;">
-                                                Most Reserved
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="color: white; text-shadow: 1px 1px 5px #000000;">
+                                                Most Reserved Room
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-white" style="color: white; text-shadow: 1px 1px 2px #000000;">
-                                                Room 202
+                                            <?php echo $most_reserved_room; ?>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -386,42 +323,18 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
                             </div>
                         </div>
 
-                        <!-- Least Reserved card -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2 bg-gradient-info">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1" style="color: white; text-shadow: 2px 2px 4px #000000;">
-                                                Least Reserved
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 font-weight-bold text-white" style="color: white; text-shadow: 1px 1px 2px #000000;">
-                                                        Room 404
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-door-closed fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                      
                         <!-- Pending Approvals Card -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2 bg-gradient-warning">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1" style="color: white; text-shadow: 2px 2px 4px #000000;">
-                                                Pending Approvals
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1" style="color: white; text-shadow: 1px 1px 5px #000000;">
+                                            Pending Room Reservations
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-white" style="color: white; text-shadow: 1px 1px 2px #000000;">
-                                                18
+                                            <?php echo $pending_reservations; ?>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -433,6 +346,74 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
                         </div>
                     </div>
 
+                     <!-- Content Row -->
+                     <div class="row">
+
+<!-- Total Reservation Card -->
+<div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2 bg-gradient-primary">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="color: white; text-shadow: 1px 1px 5px #000000;">
+                        Total Vehicle Reservations
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-white" style="color: white; text-shadow: 1px 1px 2px #000000;">
+                    <?php echo $total_vehicle_reservations;?>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Most Reserved Card -->
+<div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-success shadow h-100 py-2 bg-gradient-success">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="color: white; text-shadow: 1px 1px 5px #000000;">
+                        Most Reserved Vehicle
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-white" style="color: white; text-shadow: 1px 1px 2px #000000;">
+                    <?php echo $most_reserved_vehicle;?>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-car fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Pending Approvals Card -->
+<div class="col-xl-4 col-md-6 mb-4">
+    <div class="card border-left-warning shadow h-100 py-2 bg-gradient-warning">
+        <div class="card-body">
+            <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1" style="color: white; text-shadow: 1px 1px 5px #000000;">
+                    Pending Vehicle Reservations
+                    </div>
+                    <div class="h5 mb-0 font-weight-bold text-white" style="color: white; text-shadow: 1px 1px 2px #000000;">
+                    <?php echo $pending_vehicle_reservations;?>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <i class="fas fa-exclamation-circle fa-2x text-gray-300"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
                         
                                 <!--Analytics Section -->
                         <h2 class="grid-header text-center" id="header">Analytics</h2>
@@ -440,7 +421,7 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
                         <hr> <!-- Add line divider -->
 
                         <div class="row mt-4">
-                            <div class="col-4 text-center">
+                            <div class="col-6 text-center">
                                 <div class="card custom-card shadow">
                                     <div class="card-body">
                                         <h3 class="chart-title">Most Booked Rooms</h3>
@@ -449,7 +430,7 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
                                 </div>
                             </div>
 
-                            <div class="col-4 text-center">
+                            <div class="col-6 text-center">
                                 <div class="card custom-card shadow">
                                     <div class="card-body">
                                         <h3 class="chart-title">Reservations Per Day</h3>
@@ -458,18 +439,10 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
                                 </div>
                             </div>
 
-                            <div class="col-4 text-center">
-                                <div class="card custom-card shadow">
-                                    <div class="card-body">
-                                        <h3 class="chart-title">Peak Time Reservations</h3>
-                                        <canvas id="peakTimeChart" data-chart-type="bar"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                           
 
-                        <div class="row mt-3"><!-- Add space for the cards -->
-                            <div class="col-4 text-center">
+                        <div class="row mt-3 mb-3"><!-- Add space for the cards -->
+                            <div class="col-6 text-center">
                                 <div class="card custom-card shadow text-muted" style="background: linear-gradient(to bottom, #8B0000, #FF0000);">
                                     <div class="card-body">
                                         <h3 class="chart-title" style="color: white;">Cancellation Rate: <?php echo number_format($cancellationRate, 2); ?>%</h3>
@@ -478,7 +451,9 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
                             </div>
                         </div>
 
-                        
+
+
+                       
 
             </div>
             <!-- End of Main Content -->
@@ -626,6 +601,10 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
 
        
     </script>
+    
+ 
+
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -633,7 +612,7 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
 
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
+    
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
@@ -643,6 +622,7 @@ $cancellationRate = ($canceledCount / $totalCount) * 100;
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="js/demo/chart-bar-demo.js"></script>
 
 </body>
 
