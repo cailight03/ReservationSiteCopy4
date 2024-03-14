@@ -52,7 +52,7 @@ try {
 
 
  // Email content for confirmation
- $confirmationSubject = 'Reservation Rejected';
+ $confirmationSubject = 'Reservation Approved';
 
  $confirmationContent = "Dear " . $fullName . ",\n\nYour reservation has been Approved.\n\nTrack your reservation here: ".$viewLink.
  // Set the content for the confirmation email
@@ -64,9 +64,9 @@ try {
  $confirmationMail->send();
  $confirmationMail = new PHPMailer(true);
 
-$updateQuery = "UPDATE vehicle_reservations SET status = 'Approved', admin_remarks = ? WHERE id = ?";
+$updateQuery = "UPDATE vehicle_reservations SET status = 'Approved', admin_remarks = ?, Sig2 = ?, Act2 = 'Approved', time2 = NOW() WHERE id = ?";
 $stmt = $connection->prepare($updateQuery);
-$stmt->bind_param("si",$adminRemarks, $reservationId); // Assuming reservation_id is an integer
+$stmt->bind_param("ssi",$adminRemarks, $recipientName, $reservationId); // Assuming reservation_id is an integer
 $stmt->execute();
 
 // Check if the update was successful

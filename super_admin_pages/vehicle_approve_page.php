@@ -68,6 +68,10 @@ if ($row['count'] > 0) {
     echo 'You have already approved this reservation.';
 } elseif ($statusRow['status'] === 'Cancelled') {
     echo 'This reservation has been cancelled by the requestor.';
+}elseif($statusRow['status'] === 'Rejected'){
+    echo 'This reservation is already rejected.';
+}elseif($statusRow['status'] === 'Approved'){
+    echo 'This reservation is already approved.';
 }
 
  else {

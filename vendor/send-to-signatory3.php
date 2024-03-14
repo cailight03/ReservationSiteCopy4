@@ -242,7 +242,7 @@ $approveLink .= '&selectedItems=' . urlencode(json_encode($selectedItems));
  // Attach photo to email
  if (!empty($uploadFilePath)) {
     $mail->addEmbeddedImage($uploadFilePath, 'Uploaded_Photo', 'Uploaded_Photo.jpg');
-    $htmlContent .= "<img src='cid:Uploaded_Photo' alt='Uploaded Photo' style='max-width: 100%; height: auto;'>";
+    $htmlContent .= "<img src='cid:Uploaded_Photo' alt='Uploaded Photo' style='max-width: 100%; height: 400px;'>";
 } else {
     $htmlContent .= "<p>No uploaded photo.</p>";
 }

@@ -26,6 +26,112 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $recipientName = isset($_POST['recipientName']) ? $_POST['recipientName'] : '';
     $fullName = isset($_POST['fullName']) ? $_POST['fullName'] : '';
 
+  // Array to hold the column names for sig columns
+$sigColumns = array(
+    'sig1' => 'Sig1',
+    'sig2' => 'Sig2'
+);
+
+// Find the first empty column for sig columns
+$firstEmptySigColumn = null;
+foreach ($sigColumns as $columnName => $placeholder) {
+    $checkEmptyQuery = "SELECT COUNT(*) as count FROM vehicle_reservations WHERE id = ? AND ($columnName = '' OR $columnName IS NULL)";
+    $stmtSig = $connection->prepare($checkEmptyQuery);
+    $stmtSig->bind_param("i", $reservationId);
+    $stmtSig->execute();
+    $result = $stmtSig->get_result();
+    $row = $result->fetch_assoc();
+    if ($row['count'] > 0) {
+        $firstEmptySigColumn = $columnName;
+        break;
+    }
+}
+
+if ($firstEmptySigColumn !== null) {
+    // Update the first empty column to $recipientName
+    $updateQuery = "UPDATE vehicle_reservations SET $firstEmptySigColumn = ? WHERE id = ? AND ($firstEmptySigColumn = '' OR $firstEmptySigColumn IS NULL)";
+    
+    $stmtSig = $connection->prepare($updateQuery);
+    $stmtSig->bind_param("si", $recipientName, $reservationId);
+    $stmtSig->execute();
+    
+} else {
+    echo "No empty column found for reservation ID: $reservationId";
+}
+
+
+  // Array to hold the column names for time columns
+$timeColumns = array(
+    'time1' => 'time1',
+    'time2' => 'time2'
+);
+
+// Find the first empty column for time columns
+$firstEmptyTimeColumn = null;
+foreach ($timeColumns as $columnName => $placeholder) {
+    $checkEmptyQuery = "SELECT COUNT(*) as count FROM vehicle_reservations WHERE id = ? AND ($columnName = '' OR $columnName IS NULL)";
+    $stmtTime = $connection->prepare($checkEmptyQuery);
+    $stmtTime->bind_param("i", $reservationId);
+    $stmtTime->execute();
+    $result = $stmtTime->get_result();
+    $row = $result->fetch_assoc();
+    if ($row['count'] > 0) {
+        $firstEmptyTimeColumn = $columnName;
+        break;
+    }
+}
+
+if ($firstEmptyTimeColumn !== null) {
+    // Update the first empty column to current date and time
+    $currentDateTime = date('Y-m-d H:i:s');
+    $updateQuery = "UPDATE vehicle_reservations SET $firstEmptyTimeColumn = ? WHERE id = ? AND ($firstEmptyTimeColumn = '' OR $firstEmptyTimeColumn IS NULL)";
+    
+    $stmtTime = $connection->prepare($updateQuery);
+    $stmtTime->bind_param("si", $currentDateTime, $reservationId);
+    $stmtTime->execute();
+   
+} else {
+    echo "No empty column found for reservation ID: $reservationId";
+}
+
+    // Array to hold the column names for act columns
+// Array to hold the column names for act columns
+$actColumns = array(
+    'act1' => 'Act1',
+    'act2' => 'Act2'
+);
+
+// Find the first empty column for act columns
+$firstEmptyActColumn = null;
+foreach ($actColumns as $columnName => $placeholder) {
+    $checkEmptyQuery = "SELECT COUNT(*) as count FROM vehicle_reservations WHERE id = ? AND ($columnName = '' OR $columnName IS NULL)";
+    $stmtAct = $connection->prepare($checkEmptyQuery);
+    $stmtAct->bind_param("i", $reservationId);
+    $stmtAct->execute();
+    $result = $stmtAct->get_result();
+    $row = $result->fetch_assoc();
+    if ($row['count'] > 0) {
+        $firstEmptyActColumn = $columnName;
+        break;
+    }
+}
+
+if ($firstEmptyActColumn !== null) {
+    // Update the first empty column to 'Approved'
+    $updateQuery = "UPDATE vehicle_reservations SET $firstEmptyActColumn = 'Rejected' WHERE id = ? AND ($firstEmptyActColumn = '' OR $firstEmptyActColumn IS NULL)";
+    
+    $stmtAct = $connection->prepare($updateQuery);
+    $stmtAct->bind_param("i", $reservationId);
+    $stmtAct->execute();
+    
+} else {
+    echo "No empty column found for reservation ID: $reservationId";
+}
+
+
+    
+    
+
     
 try {
     $confirmationMail = new PHPMailer(true);

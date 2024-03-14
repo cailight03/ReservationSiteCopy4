@@ -65,9 +65,13 @@ $statusRow = $statusResult->fetch_assoc();
 if ($row['count'] > 0) {
     // Recipient name exists in the database
     // Print the message
-    echo 'You have already approved this reservation.';
+    echo 'You have already rejected this reservation.';
 } elseif ($statusRow['status'] === 'Cancelled') {
     echo 'This reservation has been cancelled by the requestor.';
+}elseif($statusRow['status'] === 'Rejected'){
+    echo 'This reservation is already rejected.';
+}elseif($statusRow['status'] === 'Approved'){
+    echo 'This reservation is already approved.';
 }
 
  else {
@@ -164,7 +168,7 @@ if ($row['count'] > 0) {
     <form id="approvalForm" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="additionalRemarks" class="form-label"><strong>Additional Remarks:</strong></label>
-                <textarea class="form-control" id="additionalRemarks" name="additionalRemarks" rows="3"></textarea>
+                <textarea class="form-control" id="additionalRemarks" name="additionalRemarks" rows="3" required></textarea>
             </div>
        
         <input type="hidden" name="reservationId" value="<?php echo $reservationId; ?>">

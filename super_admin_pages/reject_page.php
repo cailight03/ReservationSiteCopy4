@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             <p><strong>Organization/College:</strong> <?php echo $college?></p>
             <strong>ID Picture:</strong>
             <div> <?php  if (!empty($uploadFilePath)) {
-        echo "<img src='$uploadFilePath' alt='Uploaded Photo' style='max-width: 100%; height: auto;'>";
+        echo "<img src='$uploadFilePath' alt='Uploaded Photo' style='max-width: 100%; height: 400px;'>";
     } else {
         echo "<p>No uploaded photo.</p>";
     } ?></div>

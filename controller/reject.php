@@ -66,6 +66,80 @@ if ($firstEmptyColumn !== null) {
     echo "No empty column found.";
 }
 
+// Array to hold the column names for act columns
+$actColumns = array(
+    'act1' => 'Act1',
+    'act2' => 'Act2',
+    'act3' => 'Act3',
+    'act4' => 'Act4',
+    'act5' => 'Act5',
+    'act6' => 'Act6'
+);
+
+// Find the first empty column for act columns
+$firstEmptyActColumn = null;
+foreach ($actColumns as $columnName => $placeholder) {
+    $checkEmptyQuery = "SELECT COUNT(*) as count FROM reservations WHERE id = ? AND ($columnName = '' OR $columnName IS NULL)";
+    $stmtAct = $connection->prepare($checkEmptyQuery);
+    $stmtAct->bind_param("i", $reservationId);
+    $stmtAct->execute();
+    $result = $stmtAct->get_result();
+    $row = $result->fetch_assoc();
+    if ($row['count'] > 0) {
+        $firstEmptyActColumn = $columnName;
+        break;
+    }
+}
+
+if ($firstEmptyActColumn !== null) {
+    // Update the first empty column to 'Approved'
+    $updateQuery = "UPDATE reservations SET $firstEmptyActColumn = 'Approved' WHERE id = ?";
+    
+    $stmtAct = $connection->prepare($updateQuery);
+    $stmtAct->bind_param("i", $reservationId);
+    $stmtAct->execute();
+}else{
+    echo "No empty column found.";
+}
+
+$timeColumns = array(
+    'time1' => 'time1',
+    'time2' => 'time2',
+    'time3' => 'time3',
+    'time4' => 'time4',
+    'time5' => 'time5',
+    'time6' => 'time6'
+);
+
+// Find the first empty column for time columns
+$firstEmptyTimeColumn = null;
+foreach ($timeColumns as $columnName => $placeholder) {
+    $checkEmptyQuery = "SELECT COUNT(*) as count FROM reservations WHERE id = ? AND ($columnName = '' OR $columnName IS NULL)";
+    $stmtTime = $connection->prepare($checkEmptyQuery);
+    $stmtTime->bind_param("i", $reservationId);
+    $stmtTime->execute();
+    $result = $stmtTime->get_result();
+    $row = $result->fetch_assoc();
+    if ($row['count'] > 0) {
+        $firstEmptyTimeColumn = $columnName;
+        break;
+    }
+}
+
+if ($firstEmptyTimeColumn !== null) {
+    // Update the first empty column to current date and time
+    $currentDateTime = date('Y-m-d H:i:s');
+    $updateQuery = "UPDATE reservations SET $firstEmptyTimeColumn = ? WHERE id = ?";
+    
+    $stmtTime = $connection->prepare($updateQuery);
+    $stmtTime->bind_param("si", $currentDateTime, $reservationId);
+    $stmtTime->execute();
+}else{
+    echo "No empty column found.";
+}
+
+
+
     
     
  

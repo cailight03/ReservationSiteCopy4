@@ -234,9 +234,9 @@ $connection->close();
 
 
  // Email content for confirmation
- $confirmationSubject = 'Reservation Submitted';
+ $confirmationSubject = 'Reservation Rescheduled';
 
- $confirmationContent = "Dear " . $fullName . ",\n\nYour reservation has been submitted.\n\nTrack your reservation here: ".$viewLink.
+ $confirmationContent = "Dear " . $fullName . ",\n\nYour reservation has been rescheduled.\n\nTrack your reservation here: ".$viewLink.
  $confirmationMail->isHTML(false); // Set to true if you want HTML content
  $confirmationMail->Subject = $confirmationSubject;
  $confirmationMail->Body = $confirmationContent;
