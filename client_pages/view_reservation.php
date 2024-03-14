@@ -174,6 +174,12 @@ if (isset($_GET['reservationId'])) {
             
             box-shadow: none;
         }
+
+        body {
+            
+            background-color: #fff;
+            
+        }
 }
 </style>
     </style>

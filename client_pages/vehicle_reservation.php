@@ -153,6 +153,11 @@ if (isset($_GET['reservationId'])) {
         padding: 30px;
         
     }
+    body {
+            
+            background-color: #fff;
+            
+        }
 }
     </style>
 </head>
