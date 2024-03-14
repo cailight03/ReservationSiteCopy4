@@ -234,7 +234,7 @@ echo "<div class='mt-3 hidden'>
             <p><strong>Admin Remarks:</strong> <?php echo $row['admin_remarks']; ?></p>
         <?php endif; ?>
 
-        <?php if ($row['status'] === 'Approved'): ?>
+<?php if ($row['status'] === 'Approved'): ?>
 
 <div class="row justify-content-end mt-5">
     <div class="col-3 me-2 text-center">

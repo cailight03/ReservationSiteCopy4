@@ -106,30 +106,12 @@ if (isset($_GET['reservationId'])) {
             /* Align buttons to the right */
         }
 
-        .buttons a {
+        .btn {
             margin-right: 10px;
             text-decoration: none;
         }
 
-        .reschedule {
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .cancel {
-            background-color: #e74c3c;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-        }
+       
 
         .success-modal {
             display: none;
@@ -167,42 +149,78 @@ if (isset($_GET['reservationId'])) {
     color: red;
     cursor: not-allowed;
 }
+
+.navbar{
+  
+  margin-bottom: 2.5rem;
+  max-width: 1320px;
+}
+
+.navbar-brand{
+    font-size: 1rem;
+    font-weight: 600;
+}
+.navbar-brand img{
+ width: 50px;
+ padding-right: 10px;
+}
+
+@media print{
+    .hidden{
+        display: none;
+    }
+
+    .container {
+            
+            box-shadow: none;
+        }
+}
 </style>
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Reservation Details</h1>
-        <p><strong>Reservation ID:</strong> <?php echo $row['id']; ?></p>
-        <!-- ... (other details) ... -->
+
+    <nav class="navbar col-6">
+        <div >
+            <a class="navbar-brand" href="vehicle_reservation_copy.php" >
+            <img src="../img/navbar_img/National_University_seal.png" alt="Logo" class="d-inline-block align-text-center" style="width:50px;">
+         NU Laguna Reservation
+            
+            </a>
+        </div>
+    </nav>
+
+    <div class="mb-3">
+
+    <h1 >Reservation #<?php echo $row['id']; ?></h1>
+    <p><strong>Date Submitted:</strong> <?php echo $row['date_submitted']; ?></p>
         <p><strong>Status:</strong> <?php echo $row['status']; ?></p>
-        <p><strong>Room ID:</strong> <?php echo $row['room_id']; ?></p>
-        <p><strong>Room Name:</strong> <?php echo $row['room_name']; ?></p>
-        <p><strong>Full Name:</strong> <?php echo $row['requestor']; ?></p>
+
+    </div>
+
+
+        <div class="row">
+            <div class="col-6 ">
+            <h3>Requestor Details</h3>
+            <p><strong>Full Name:</strong> <?php echo $row['requestor']; ?></p>
         <p><strong>Organization:</strong> <?php echo $row['organization']; ?></p>
         <p><strong>User Type:</strong> <?php echo $row['userType']; ?></p>
         <p><strong>College/Department/Office:</strong> <?php echo $row['department']; ?></p>
+            </div>
+
+            <div class="col-6">
+                <h3> Form Details</h3>
+                <p><strong>Room Name:</strong> <?php echo $row['room_name']; ?></p>
+        
         <p><strong>Activity Type:</strong> <?php echo $row['activityType']; ?></p>
         <p><strong>Activity Name:</strong> <?php echo $row['activity_name']; ?></p>
         <p><strong>No. of Attendees:</strong> <?php echo $row['num_of_attendees']; ?></p>
         <p><strong>Date:</strong> <?php echo $row['date']; ?></p>
         <p><strong>Time Slot:</strong> <?php echo $row['time_slot']; ?></p>
         <div class="row">
-            <div class="col-6">
-            <h3>ID Photo:</h3>
-            
-            <?php  if (!empty($row['uploadFilePath'])) {
-        echo "<img src='".$row['uploadFilePath']."' alt='Uploaded Photo' style='max-width:400px; height: auto;'>";
-    } else {
-        echo "<p>No uploaded photo.</p>";
-    } ?>
-            </div>
-            </div>
-        
-        <div class="row">
-        <div class="col-sm-6">
-            <p><strong>Items Needed:</strong></p>
+        <p><strong>Items Needed:</strong></p>
             
             <div class="mb-3"> 
                 <?php   if ($selectedItems !== null) {
@@ -213,6 +231,29 @@ if (isset($_GET['reservationId'])) {
             </div>  
         
         <p><strong>Remarks:</strong> <?php echo $row['remarks']; ?></p>
+
+            </div>
+        </div>
+        
+      
+        
+        
+        
+            <div class="col-6 mb-3 hidden">
+            <h3>ID Photo:</h3>
+            
+            <?php  if (!empty($row['uploadFilePath'])) {
+        echo "<img src='".$row['uploadFilePath']."' alt='Uploaded Photo' style='max-width:auto; height: 400px;'>";
+    } else {
+        echo "<p>No uploaded photo.</p>";
+    } ?>
+            </div>
+            </div>
+        
+        
+          
+        
+       
         
         <?php if ($row['status'] === 'Rejected'): ?>
             <p><strong>Admin Remarks:</strong> <?php echo $row['admin_remarks']; ?></p>
@@ -318,12 +359,44 @@ if ($row['userType'] == 'student' && $row['activityType'] == 'Academic Activity'
             break;
          
         default:
-            echo "<div>
+            echo "<div class='hidden'>
             <p><strong>Signatory 1: </strong>".$adviserEmail." ". $row['Act1'] ." ".$row['time1']."</p>
             <p><strong>Signatory 2: </strong>NU Laguna Reservation ". $row['Act2'] ." ".$row['time2']."</p>
             <p><strong>Signatory 3: </strong>Academic Director ". $row['Act3'] ." ".$row['time3']."</p>
             <p><strong>Signatory 4: </strong> Physical Facilities ". $row['Act4'] ." ".$row['time4']."</p>
                   </div>";
+
+                  if ($row['status'] === 'Approved'):
+
+                  echo '<div class="row justify-content-end mt-5">
+                  <div class="col-3 me-2 text-center">
+              <p class=" border border-0 text-bg-secondary  px-4 ">NUL RSRVN</p>
+              <div class=" ">
+                  <img src="../img/signature_img/signature.jpg" alt="" style="max-width: 100%; height: 50px;">
+                  <h6><strong>Mary Minette D. Robediso</strong></h6>
+            
+              </div>
+                  </div>
+                  <div class="col-3 me-2 text-center">
+              <p class=" border border-0 text-bg-secondary  px-4 ">ACADEMIC DIR.</p>
+              <div class=" ">
+                  <img src="../img/signature_img/sig2.png" alt="" style="max-width: 100%; height: 50px;">
+                  <h6><strong>Josefina G. San Miguel</strong></h6>
+                  
+              </div>
+                  </div>
+                  <div class="col-3 me-2 text-center">
+              <p class=" border border-0 text-bg-secondary  px-4 ">PHY. FACI.</p>
+              <div class=" ">
+                  <img src="../img/signature_img/sig2.png" alt="" style="max-width: 100%; height: 50px;">
+                  <h6><strong>Jane D. Doe</strong></h6>
+                  
+              </div>
+                  </div>
+                  
+              </div>';
+
+                  endif;
 
                   
             break;
@@ -433,13 +506,53 @@ if ($row['userType'] == 'student' && $row['activityType'] == 'Academic Activity'
             break;
          
         default:
-            echo "<div>
+            echo "<div class='hidden'>
             <p><strong>Signatory 1: </strong>".$adviserEmail." ". $row['Act1'] ." ".$row['time1']."</p>
             <p><strong>Signatory 2</strong>:SDAO". $row['Act2'] ." ".$row['time2']."</p>
             <p><strong>Signatory 3: </strong>NU Laguna Reservation ". $row['Act3'] ." ".$row['time3']."</p>
             <p><strong>Signatory 4: </strong>Academic Director ".$row['Act4'] ." ".$row['time4'] ."</p>
             <p><strong>Signatory 5: </strong> Physical Facilities ". $row['Act5'] ." ".$row['time5']."</p>
             </div>";
+
+            if ($row['status'] === 'Approved'):
+
+                echo '<div class="row justify-content-end mt-5">
+                <div class="col-3 me-2 text-center">
+            <p class=" border border-0 text-bg-secondary  px-4 ">NUL RSRVN</p>
+            <div class=" ">
+                <img src="../img/signature_img/signature.jpg" alt="" style="max-width: 100%; height: 50px;">
+                <h6><strong>Mary Minette D. Robediso</strong></h6>
+          
+            </div>
+                </div>
+                <div class="col-3 me-2 text-center">
+            <p class=" border border-0 text-bg-secondary  px-4 ">SDAO</p>
+            <div class=" ">
+                <img src="../img/signature_img/signature.jpg" alt="" style="max-width: 100%; height: 50px;">
+                <h6><strong>John D. Doe</strong></h6>
+          
+            </div>
+                </div>
+                <div class="col-3 me-2 text-center">
+            <p class=" border border-0 text-bg-secondary  px-4 ">ACADEMIC DIR.</p>
+            <div class=" ">
+                <img src="../img/signature_img/sig2.png" alt="" style="max-width: 100%; height: 50px;">
+                <h6><strong>Josefina G. San Miguel</strong></h6>
+                
+            </div>
+                </div>
+                <div class="col-3 me-2 text-center">
+            <p class=" border border-0 text-bg-secondary  px-4 ">PHY. FACI.</p>
+            <div class=" ">
+                <img src="../img/signature_img/sig2.png" alt="" style="max-width: 100%; height: 50px;">
+                <h6><strong>Jane D. Doe</strong></h6>
+                
+            </div>
+                </div>
+                
+            </div>';
+
+                endif;
 
                   
             break;
@@ -538,12 +651,44 @@ if ($row['userType'] == 'student' && $row['activityType'] == 'Academic Activity'
             break;
          
         default:
-            echo "<div>
+            echo "<div class='hidden'>
             <p><strong>Signatory 1: </strong>".$recipientName." ". $row['Act1'] ." ".$row['time1']."</p>
             <p><strong>Signatory 2: </strong>NU Laguna Reservation ". $row['Act2'] ." ".$row['time2']."</p>
             <p><strong>Signatory 3: </strong>Academic Director ". $row['Act3'] ." ".$row['time3']."</p>
             <p><strong>Signatory 4: </strong> Physical Facilities ". $row['Act4'] ." ".$row['time4']."</p>
                   </div>";
+
+                  if ($row['status'] === 'Approved'):
+
+                    echo '<div class="row justify-content-end mt-5">
+                    <div class="col-3 me-2 text-center">
+                <p class=" border border-0 text-bg-secondary  px-4 ">NUL RSRVN</p>
+                <div class=" ">
+                    <img src="../img/signature_img/signature.jpg" alt="" style="max-width: 100%; height: 50px;">
+                    <h6><strong>Mary Minette D. Robediso</strong></h6>
+              
+                </div>
+                    
+                    <div class="col-3 me-2 text-center">
+                <p class=" border border-0 text-bg-secondary  px-4 ">ACADEMIC DIR.</p>
+                <div class=" ">
+                    <img src="../img/signature_img/sig2.png" alt="" style="max-width: 100%; height: 50px;">
+                    <h6><strong>Josefina G. San Miguel</strong></h6>
+                    
+                </div>
+                    </div>
+                    <div class="col-3 me-2 text-center">
+                <p class=" border border-0 text-bg-secondary  px-4 ">PHY. FACI.</p>
+                <div class=" ">
+                    <img src="../img/signature_img/sig2.png" alt="" style="max-width: 100%; height: 50px;">
+                    <h6><strong>Jane D. Doe</strong></h6>
+                    
+                </div>
+                    </div>
+                    
+                </div>';
+    
+                    endif;
 
                   
             break;
@@ -659,11 +804,44 @@ if ($row['userType'] == 'student' && $row['activityType'] == 'Academic Activity'
             break;
          
         default:
-            echo "<div>
+            echo "<div class='hidden'>
             <p><strong>Signatory 1: </strong>NU Laguna Reservation ". $row['Act1'] ." ".$row['time1']."</p>
                     <p><strong>Signatory 2: </strong>SAD ".$row['Act2'] ." ".$row['time2'] ."</p>
                     <p><strong>Signatory 3: </strong>Physical Facilities ".$row['Act3'] ." ".$row['time3'] ."</p>
                   </div>";
+
+                  if ($row['status'] === 'Approved'):
+
+                    echo '<div class="row justify-content-end mt-5">
+                    <div class="col-3 me-2 text-center">
+                <p class=" border border-0 text-bg-secondary  px-4 ">NUL RSRVN</p>
+                <div class=" ">
+                    <img src="../img/signature_img/signature.jpg" alt="" style="max-width: 100%; height: 50px;">
+                    <h6><strong>Mary Minette D. Robediso</strong></h6>
+              
+                </div>
+                    </div>
+                    
+                    <div class="col-3 me-2 text-center">
+                <p class=" border border-0 text-bg-secondary  px-4 ">SAD</p>
+                <div class=" ">
+                    <img src="../img/signature_img/sig2.png" alt="" style="max-width: 100%; height: 50px;">
+                    <h6><strong>Josefina G. San Miguel</strong></h6>
+                    
+                </div>
+                    </div>
+                    <div class="col-3 me-2 text-center">
+                <p class=" border border-0 text-bg-secondary  px-4 ">PHY. FACI.</p>
+                <div class=" ">
+                    <img src="../img/signature_img/sig2.png" alt="" style="max-width: 100%; height: 50px;">
+                    <h6><strong>Jane D. Doe</strong></h6>
+                    
+                </div>
+                    </div>
+                    
+                </div>';
+    
+                    endif;
 
                   
             break;
@@ -676,7 +854,7 @@ if ($row['userType'] == 'student' && $row['activityType'] == 'Academic Activity'
         
        
 
-        <div class="buttons">
+        <div class="buttons hidden">
             <?php if ($row['status'] !== 'Cancelled'): ?>
                 <?php if ($row['status'] === 'Pending'): ?>
                     <button class="btn btn-primary reschedule" disabled>Reschedule</button>
@@ -685,6 +863,9 @@ if ($row['userType'] == 'student' && $row['activityType'] == 'Academic Activity'
                 <?php endif; ?>
                 <button class="btn btn-danger cancel" data-bs-toggle="modal" data-bs-target="#cancelConfirmationModal">Cancel</button>
             <?php endif; ?>
+            <?php if ($row['status'] === 'Approved'): ?>
+                <button onclick="window.print();" class="btn btn-success">Print</button>
+                <?php endif; ?>
         </div>
     </div>
 
