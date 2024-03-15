@@ -167,16 +167,22 @@ if (isset($_GET['reservationId'])) {
     <div class="container">
         
     
-   
-    <nav class="navbar col-6">
+ 
+   <nav class="navbar  ">
         <div >
             <a class="navbar-brand" href="vehicle_reservation_copy.php" >
             <img src="../img/navbar_img/National_University_seal.png" alt="Logo" class="d-inline-block align-text-center" style="width:50px;">
          NU Laguna Reservation
             
             </a>
+            
         </div>
+        <p><strong>VEHICLE REQUEST FORM</strong></p>
+       
     </nav>
+
+   
+    
 
     
 
